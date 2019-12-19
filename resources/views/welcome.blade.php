@@ -81,6 +81,8 @@
                 font-size: 20px;
                 border-radius: 20px;
                 color: white;
+                transition: all 0.3s ease-in-out;
+                cursor: pointer;
             }
             .landing-btn-1
             {
@@ -89,6 +91,11 @@
             .landing-btn-2
             {
                 background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+            }
+            .landing-btn-1:hover, .landing-btn-2:hover
+            {
+                transform: translateY(-10px);
+                box-shadow: 0 1px 20px 3px grey;
             }
             @media(max-width: 900px) {
                 .landing-wrapper .row
