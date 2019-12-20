@@ -18,3 +18,4 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/profile','ProfileController@show');
+Route::get('/ferin');
