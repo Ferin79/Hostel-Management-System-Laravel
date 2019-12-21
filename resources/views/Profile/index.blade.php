@@ -5,10 +5,12 @@
     <div class="container-fluid">
         <div class="row">
             <div class="userInfo">
-                <img src="" class="rounded-circle" alt="img">
+                <img
+                    src="/storage/{{ $user->StudentProfile->image }}"
+                    class="rounded-circle" alt="img">
                 <h1>{{ $user->first_name }} {{ $user->last_name }}</h1>
             </div>
-            <form class="profile-index-form" method="POST" action="" enctype="multipart/form-data">
+            <form class="profile-index-form" method="POST" action="/profile" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 <div class="col-lg-6 col-sm-12 profile-index-section-1">
@@ -23,7 +25,7 @@
                                 <input id="first_name" type="text"
                                        class="form-control @error('first_name') is-invalid @enderror" name="first_name"
                                        value="{{ $user->first_name }}" required autocomplete="first_name"
-                                       placeholder="First name" autofocus>
+                                       readonly placeholder="First name" autofocus>
 
                                 @error('first_name')
                                 <span class="invalid-feedback" role="alert">
@@ -40,7 +42,7 @@
                                 <input id="last_name" type="text"
                                        class="form-control @error('last_name') is-invalid @enderror" name="last_name"
                                        value="{{ $user->last_name }}" required autocomplete="last_name"
-                                       placeholder="Last name" autofocus>
+                                       readonly placeholder="Last name" autofocus>
 
                                 @error('last_name')
                                 <span class="invalid-feedback" role="alert">
@@ -93,33 +95,26 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="dob" class="col-md-4 col-form-label text-md-right">Date of Birth</label>
-
-                            <div class="col-md-6">
-                                <input id="dob" type="date"
-                                       class="form-control @error('dob') is-invalid @enderror" name="dob"
-                                       value="{{ $user->StudentProfile->dob }}" required
-                                       autofocus>
-
-                                @error('dob')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
                             <label for="cast" class="col-md-4 col-form-label text-md-right">Cast</label>
 
                             <div class="col-md-6">
                                 <select class="form-control" name="cast" id="cast">
                                     <option value="0" selected disabled>Select Cast</option>
-                                    <option value="gen" {{ $user->StudentProfile->cast == 'gen' ? 'selected' : null }}>General</option>
-                                    <option value="obc" {{ $user->StudentProfile->cast == 'obc' ? 'selected' : null }}>OBC</option>
-                                    <option value="sc" {{ $user->StudentProfile->cast == 'sc' ? 'selected' : null }}>SC</option>
-                                    <option value="st" {{ $user->StudentProfile->cast == 'st' ? 'selected' : null }}>ST</option>
-                                    <option value="oth" {{ $user->StudentProfile->cast == 'oth' ? 'selected' : null }}>Other</option>
+                                    <option value="gen" {{ $user->StudentProfile->cast == 'gen' ? 'selected' : null }}>
+                                        General
+                                    </option>
+                                    <option value="obc" {{ $user->StudentProfile->cast == 'obc' ? 'selected' : null }}>
+                                        OBC
+                                    </option>
+                                    <option value="sc" {{ $user->StudentProfile->cast == 'sc' ? 'selected' : null }}>
+                                        SC
+                                    </option>
+                                    <option value="st" {{ $user->StudentProfile->cast == 'st' ? 'selected' : null }}>
+                                        ST
+                                    </option>
+                                    <option value="oth" {{ $user->StudentProfile->cast == 'oth' ? 'selected' : null }}>
+                                        Other
+                                    </option>
                                 </select>
 
                                 @error('cast')
@@ -229,7 +224,7 @@
                             <div class="col-md-6">
                                 <input id="pincode" type="number"
                                        class="form-control @error('pincode') is-invalid @enderror" name="pincode"
-                                       value="{{ $user->StudentProfile->zipcode }}" required autocomplete="pincode"
+                                       value="{{ $user->StudentProfile->pincode }}" required autocomplete="pincode"
                                        placeholder="pincode" autofocus>
 
                                 @error('pincode')
@@ -252,12 +247,25 @@
                             <div class="col-md-6">
                                 <select class="form-control" name="degree" id="degree" required>
                                     <option value="0" disabled selected>Select Your Highest Education</option>
-                                    <option value="12" {{ $user->StudentProfile->degree == '12'? 'selected' : null }}>12th</option>
-                                    <option value="diploma" {{ $user->StudentProfile->degree == 'diploma'? 'selected' : null }}>Diploma</option>
-                                    <option value="1" {{ $user->StudentProfile->degree == '1'? 'selected' : null }}>1st Year</option>
-                                    <option value="2" {{ $user->StudentProfile->degree == '2'? 'selected' : null }}>2nd Year</option>
-                                    <option value="3" {{ $user->StudentProfile->degree == '3'? 'selected' : null }}>3rd Year</option>
-                                    <option value="4" {{ $user->StudentProfile->degree == '4'? 'selected' : null }}>4th Year</option>
+                                    <option value="12" {{ $user->StudentProfile->degree == '12'? 'selected' : null }}>
+                                        12th
+                                    </option>
+                                    <option
+                                        value="diploma" {{ $user->StudentProfile->degree == 'diploma'? 'selected' : null }}>
+                                        Diploma
+                                    </option>
+                                    <option value="1" {{ $user->StudentProfile->degree == '1'? 'selected' : null }}>1st
+                                        Year
+                                    </option>
+                                    <option value="2" {{ $user->StudentProfile->degree == '2'? 'selected' : null }}>2nd
+                                        Year
+                                    </option>
+                                    <option value="3" {{ $user->StudentProfile->degree == '3'? 'selected' : null }}>3rd
+                                        Year
+                                    </option>
+                                    <option value="4" {{ $user->StudentProfile->degree == '4'? 'selected' : null }}>4th
+                                        Year
+                                    </option>
                                 </select>
 
                                 @error('degree')
@@ -293,10 +301,22 @@
                                         value="computer" {{ $user->StudentProfile->department == 'computer' ? 'selected' : null }}>
                                         Computer
                                     </option>
-                                    <option value="electrical" {{ $user->StudentProfile->department == 'electrical' ? 'selected' : null }}>Electrical</option>
-                                    <option value="civil" {{ $user->StudentProfile->department == 'civil' ? 'selected' : null }}>Civil</option>
-                                    <option value="mech" {{ $user->StudentProfile->department == 'mech' ? 'selected' : null }}>Mechanical</option>
-                                    <option value="ec" {{ $user->StudentProfile->department == 'ec' ? 'selected' : null }}>E.C</option>
+                                    <option
+                                        value="electrical" {{ $user->StudentProfile->department == 'electrical' ? 'selected' : null }}>
+                                        Electrical
+                                    </option>
+                                    <option
+                                        value="civil" {{ $user->StudentProfile->department == 'civil' ? 'selected' : null }}>
+                                        Civil
+                                    </option>
+                                    <option
+                                        value="mech" {{ $user->StudentProfile->department == 'mech' ? 'selected' : null }}>
+                                        Mechanical
+                                    </option>
+                                    <option
+                                        value="ec" {{ $user->StudentProfile->department == 'ec' ? 'selected' : null }}>
+                                        E.C
+                                    </option>
                                 </select>
 
                                 @error('department')
@@ -311,22 +331,22 @@
                             <label for="sem" class="col-md-4 col-form-label text-md-right">Semester</label>
                             <div class="col-md-6">
                                 <select class="form-control" name="sem" id="sem">
-                                    <option selected disabled>Select Semester</option>
-                                    <option value="" {{ $user->StudentProfile->sem == '1' ? 'selected' : null }}>1
+                                    <option value="0" selected disabled>Select Semester</option>
+                                    <option value="1" {{ $user->StudentProfile->sem == '1' ? 'selected' : null }}>1
                                     </option>
-                                    <option value="" {{ $user->StudentProfile->sem == '2' ? 'selected' : null }}>2
+                                    <option value="2" {{ $user->StudentProfile->sem == '2' ? 'selected' : null }}>2
                                     </option>
-                                    <option value="" {{ $user->StudentProfile->sem == '3' ? 'selected' : null }}>3
+                                    <option value="3" {{ $user->StudentProfile->sem == '3' ? 'selected' : null }}>3
                                     </option>
-                                    <option value="" {{ $user->StudentProfile->sem == '4' ? 'selected' : null }}>4
+                                    <option value="4" {{ $user->StudentProfile->sem == '4' ? 'selected' : null }}>4
                                     </option>
-                                    <option value="" {{ $user->StudentProfile->sem == '5' ? 'selected' : null }}>5
+                                    <option value="5" {{ $user->StudentProfile->sem == '5' ? 'selected' : null }}>5
                                     </option>
-                                    <option value="" {{ $user->StudentProfile->sem == '6' ? 'selected' : null }}>6
+                                    <option value="6" {{ $user->StudentProfile->sem == '6' ? 'selected' : null }}>6
                                     </option>
-                                    <option value="" {{ $user->StudentProfile->sem == '7' ? 'selected' : null }}>7
+                                    <option value="7" {{ $user->StudentProfile->sem == '7' ? 'selected' : null }}>7
                                     </option>
-                                    <option value="" {{ $user->StudentProfile->sem == '8' ? 'selected' : null }}>8
+                                    <option value="8" {{ $user->StudentProfile->sem == '8' ? 'selected' : null }}>8
                                     </option>
                                 </select>
 
@@ -348,7 +368,7 @@
                             <label for="image" class="col-md-4 col-form-label text-md-right">Profile Image</label>
                             <div class="col-md-6">
                                 <input id="image" type="file"
-                                       class="form-control @error('image') is-invalid @enderror" name="image"
+                                       class="form-control @error('image') is-invalid @enderror " name="image"
                                        accept="image/*" autofocus>
 
                                 @error('image')
