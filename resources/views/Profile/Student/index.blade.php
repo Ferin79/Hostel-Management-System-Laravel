@@ -10,7 +10,7 @@
                     class="rounded-circle" alt="img">
                 <h1>{{ $user->first_name }} {{ $user->last_name }}</h1>
             </div>
-            <form class="profile-index-form" method="POST" action="/profile" enctype="multipart/form-data">
+            <form class="profile-index-form" method="POST" action="/student/profile" enctype="multipart/form-data">
                 @csrf
                 @method('PATCH')
                 <div class="col-lg-6 col-sm-12 profile-index-section-1">

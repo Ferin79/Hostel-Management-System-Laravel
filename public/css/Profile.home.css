@@ -1,0 +1,49 @@
+.card-wrapper
+{
+    width: 30%;
+    height: 150px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    color: white;
+    border: none;
+    transition: all 0.2s ease-in-out;
+    margin: 10px;
+}
+.card-1
+{
+    background-color: #81ecec;
+}
+.card-2
+{
+    background-color: #55efc4;
+}
+.card-3
+{
+    background-color: #74b9ff;
+}
+.card-4
+{
+    background-color: #a29bfe;
+}
+.card-5
+{
+    background-color: #ffeaa7;
+}
+.card-6
+{
+    background-color: #636e72;
+}
+.card-wrapper:hover
+{
+    cursor: pointer;
+    transform: translateY(-10px);
+    box-shadow: 1px 1px 10px 5px grey;
+}
+@media(max-width: 990px){
+    .card-wrapper
+    {
+        width: 100%;
+    }
+}

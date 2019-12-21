@@ -17,7 +17,7 @@ class ProfileController extends Controller
     public function show()
     {
             $user = User::findOrFail(auth()->user()->id);
-            return view('Profile.index',compact('user'));
+            return view('Profile.Student.index',compact('user'));
     }
     public function update(User $user)
     {
@@ -49,6 +49,6 @@ class ProfileController extends Controller
             $imageArray ?? [],
         ));
 
-        return redirect('/profile');
+        return redirect('/student/profile');
     }
 }
