@@ -1,0 +1,40 @@
+.profile-index-form
+{
+    width: 100%;
+    display: flex;
+}
+.profile-index-section-1
+{
+    width: 50%;
+    border-right: 1px solid black;
+}
+.profile-index-section-2
+{
+    width: 50%;
+}
+.userInfo
+{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.userInfo img
+{
+    height: 100px;
+    width: 100px;
+    background-color: dimgrey;
+    margin: 0 50px;
+}
+
+@media(max-width: 789px) {
+    .profile-index-form
+    {
+        display: block;
+    }
+    .profile-index-section-1, .profile-index-section-2
+    {
+        border: none;
+        width: 100%;
+    }
+}
