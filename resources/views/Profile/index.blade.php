@@ -198,22 +198,124 @@
                             </div>
                         </div>
 
+
                         <div class="form-group row">
                             <label for="state" class="col-md-4 col-form-label text-md-right">State</label>
                             <div class="col-md-6">
                                 <select class="form-control" name="state" id="state" required>
                                     <option selected disabled>Select State</option>
                                     <option
-                                        value="gujarat" {{ $user->StudentProfile->state == 'gujarat' ? 'selected' : null}}>
+                                        value="ap" {{ $user->StudentProfile->state == 'ap' ? 'selected' : null}}>
+                                        Andhra Pradesh
+                                    </option>
+                                    <option
+                                        value="ar" {{ $user->StudentProfile->state == 'ar' ? 'selected' : null}}>
+                                        Arunachal Pradesh
+                                    </option>
+                                    <option
+                                        value="as" {{ $user->StudentProfile->state == 'as' ? 'selected' : null}}>
+                                        Assam
+                                    </option>
+                                    <option
+                                        value="br" {{ $user->StudentProfile->state == 'br' ? 'selected' : null}}>
+                                        Bihar
+                                    </option>
+                                    <option
+                                        value="cg" {{ $user->StudentProfile->state == 'cg' ? 'selected' : null}}>
+                                        Chhattisgarh
+                                    </option>
+                                    <option
+                                        value="ga" {{ $user->StudentProfile->state == 'ga' ? 'selected' : null}}>
+                                        Goa
+                                    </option>
+                                    <option
+                                        value="gj" {{ $user->StudentProfile->state == 'gj' ? 'selected' : null}}>
                                         Gujarat
                                     </option>
                                     <option
-                                        value="maharashtra" {{ $user->StudentProfile->state == 'maharashtra' ? 'selected' : null }}>
+                                        value="hr" {{ $user->StudentProfile->state == 'hr' ? 'selected' : null}}>
+                                        Haryana
+                                    </option>
+                                    <option
+                                        value="hp" {{ $user->StudentProfile->state == 'hp' ? 'selected' : null}}>
+                                        Himachal Pradesh
+                                    </option>
+                                    <option
+                                        value="jh" {{ $user->StudentProfile->state == 'jh' ? 'selected' : null}}>
+                                        Jharkhand
+                                    </option>
+                                    <option
+                                        value="ka" {{ $user->StudentProfile->state == 'ka' ? 'selected' : null}}>
+                                        Karnataka
+                                    </option>
+                                    <option
+                                        value="kl" {{ $user->StudentProfile->state == 'kl' ? 'selected' : null}}>
+                                        Kerala
+                                    </option>
+                                    <option
+                                        value="mp" {{ $user->StudentProfile->state == 'mp' ? 'selected' : null}}>
+                                        Madhya Pradesh
+                                    </option>
+                                    <option
+                                        value="mh" {{ $user->StudentProfile->state == 'mh' ? 'selected' : null }}>
                                         Maharashtra
                                     </option>
-                                    <option>MP</option>
-                                    <option>UP</option>
-                                    <option>Thats Its</option>
+                                    <option
+                                        value="mn" {{ $user->StudentProfile->state == 'mn' ? 'selected' : null}}>
+                                        Manipur
+                                    </option>
+                                    <option
+                                        value="ml" {{ $user->StudentProfile->state == 'ml' ? 'selected' : null}}>
+                                        Meghalaya
+                                    </option>
+                                    <option
+                                        value="mz" {{ $user->StudentProfile->state == 'mz' ? 'selected' : null}}>
+                                        Mizoram
+                                    </option>
+                                    <option
+                                        value="nl" {{ $user->StudentProfile->state == 'nl' ? 'selected' : null}}>
+                                        Nagaland
+                                    </option>
+                                    <option
+                                        value="od" {{ $user->StudentProfile->state == 'od' ? 'selected' : null}}>
+                                        Odisha
+                                    </option>
+                                    <option
+                                        value="pb" {{ $user->StudentProfile->state == 'pb' ? 'selected' : null}}>
+                                        Punjab
+                                    </option>
+                                    <option
+                                        value="rj" {{ $user->StudentProfile->state == 'rj' ? 'selected' : null}}>
+                                        Rajasthan
+                                    </option>
+                                    <option
+                                        value="sk" {{ $user->StudentProfile->state == 'sk' ? 'selected' : null}}>
+                                        Sikkim
+                                    </option>
+                                    <option
+                                        value="tn" {{ $user->StudentProfile->state == 'tn' ? 'selected' : null}}>
+                                        Tamil Nadu
+                                    </option>
+                                    <option
+                                        value="ts" {{ $user->StudentProfile->state == 'ts' ? 'selected' : null}}>
+                                        Telangana
+                                    </option>
+                                    <option
+                                        value="tr" {{ $user->StudentProfile->state == 'tr' ? 'selected' : null}}>
+                                        Tripura
+                                    </option>
+                                    <option
+                                        value="up" {{ $user->StudentProfile->state == 'up' ? 'selected' : null}}>
+                                        Uttar Pradesh
+                                    </option>
+                                    <option
+                                        value="uk" {{ $user->StudentProfile->state == 'uk' ? 'selected' : null}}>
+                                        Uttrakhand
+                                    </option>
+                                    <option
+                                        value="wb" {{ $user->StudentProfile->state == 'wb' ? 'selected' : null}}>
+                                        West Bengal
+                                    </option>
                                 </select>
                             </div>
                         </div>
