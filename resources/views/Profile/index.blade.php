@@ -8,8 +8,9 @@
                 <img src="" class="rounded-circle" alt="img">
                 <h1>{{ $user->first_name }} {{ $user->last_name }}</h1>
             </div>
-            <form class="profile-index-form">
+            <form class="profile-index-form" method="POST" action="" enctype="multipart/form-data">
                 @csrf
+                @method('PATCH')
                 <div class="col-lg-6 col-sm-12 profile-index-section-1">
                     <div class="basic-details-wrapper">
                         <hr/>
@@ -114,11 +115,11 @@
                             <div class="col-md-6">
                                 <select class="form-control" name="cast" id="cast">
                                     <option value="0" selected disabled>Select Cast</option>
-                                    <option value="gen">General</option>
-                                    <option value="obc">OBC</option>
-                                    <option value="sc">SC</option>
-                                    <option value="st">ST</option>
-                                    <option value="oth">Other</option>
+                                    <option value="gen" {{ $user->StudentProfile->cast == 'gen' ? 'selected' : null }}>General</option>
+                                    <option value="obc" {{ $user->StudentProfile->cast == 'obc' ? 'selected' : null }}>OBC</option>
+                                    <option value="sc" {{ $user->StudentProfile->cast == 'sc' ? 'selected' : null }}>SC</option>
+                                    <option value="st" {{ $user->StudentProfile->cast == 'st' ? 'selected' : null }}>ST</option>
+                                    <option value="oth" {{ $user->StudentProfile->cast == 'oth' ? 'selected' : null }}>Other</option>
                                 </select>
 
                                 @error('cast')
@@ -251,12 +252,12 @@
                             <div class="col-md-6">
                                 <select class="form-control" name="degree" id="degree" required>
                                     <option value="0" disabled selected>Select Your Highest Education</option>
-                                    <option value="12">12th</option>
-                                    <option value="diploma">Diploma</option>
-                                    <option value="1st year">1st Year</option>
-                                    <option value="2nd year">2nd Year</option>
-                                    <option value="3rd year">3rd Year</option>
-                                    <option value="4th year">4th Year</option>
+                                    <option value="12" {{ $user->StudentProfile->degree == '12'? 'selected' : null }}>12th</option>
+                                    <option value="diploma" {{ $user->StudentProfile->degree == 'diploma'? 'selected' : null }}>Diploma</option>
+                                    <option value="1" {{ $user->StudentProfile->degree == '1'? 'selected' : null }}>1st Year</option>
+                                    <option value="2" {{ $user->StudentProfile->degree == '2'? 'selected' : null }}>2nd Year</option>
+                                    <option value="3" {{ $user->StudentProfile->degree == '3'? 'selected' : null }}>3rd Year</option>
+                                    <option value="4" {{ $user->StudentProfile->degree == '4'? 'selected' : null }}>4th Year</option>
                                 </select>
 
                                 @error('degree')
@@ -292,10 +293,10 @@
                                         value="computer" {{ $user->StudentProfile->department == 'computer' ? 'selected' : null }}>
                                         Computer
                                     </option>
-                                    <option value="electrical">Electrical</option>
-                                    <option value="civil">Civil</option>
-                                    <option value="mech">Mechanical</option>
-                                    <option value="ec">E.C</option>
+                                    <option value="electrical" {{ $user->StudentProfile->department == 'electrical' ? 'selected' : null }}>Electrical</option>
+                                    <option value="civil" {{ $user->StudentProfile->department == 'civil' ? 'selected' : null }}>Civil</option>
+                                    <option value="mech" {{ $user->StudentProfile->department == 'mech' ? 'selected' : null }}>Mechanical</option>
+                                    <option value="ec" {{ $user->StudentProfile->department == 'ec' ? 'selected' : null }}>E.C</option>
                                 </select>
 
                                 @error('department')

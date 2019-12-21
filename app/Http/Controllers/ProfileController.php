@@ -14,7 +14,7 @@ class ProfileController extends Controller
 
     public function show()
     {
-            $user = User::find(auth()->user()->id);
+            $user = User::findOrFail(auth()->user()->id);
             return view('Profile.index',compact('user'));
     }
 }
