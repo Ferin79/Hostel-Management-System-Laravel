@@ -1,19 +1,31 @@
 <link href="{{ asset('css/Student.home.css') }}" rel="stylesheet">
-<script src="{{ asset('js/Student.Home.js')}}"></script>
+<script src="{{ asset('js/Admin.dashboard.js')}}"></script>
 
 @extends('layouts.app')
 
 @section('content')
     <div class="container d-flex justify-content-center flex-wrap">
-        <div class="card-wrapper card-5">
-            <div class="text-wrapper">
-                <h3>Apply Now</h3>
-                <h5>Due Date: 31-12-2020</h5>
+        @if($user == 'darkKiller@gmail.com')
+            <div class="card-wrapper card-5" id="register-request">
+                <div class="text-wrapper">
+                    <h3>Register Request</h3>
+                    @php
+                        $len = 0;
+                        foreach ($data as $val)
+                            {
+                                if($val->pending == 1)
+                                    {
+                                        $len = $len + 1;
+                                    }
+                            }
+                    @endphp
+                    <h5>{{ $len }}</h5>
+                </div>
+                <div class="icon-wrapper">
+                    <i class="fa fa-calendar fa-4x"></i>
+                </div>
             </div>
-            <div class="icon-wrapper">
-                <i class="fa fa-calendar fa-4x"></i>
-            </div>
-        </div>
+        @endif
 
         <div class="card-wrapper card-1">
             <div class="text-wrapper">

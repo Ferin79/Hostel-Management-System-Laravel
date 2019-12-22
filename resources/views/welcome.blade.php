@@ -133,7 +133,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="/home">Dashboard</a>
+                        <a href="/home">Home</a>
                         <a href="/student/profile">Profile</a>
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault();

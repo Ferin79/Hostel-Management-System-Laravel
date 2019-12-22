@@ -1,4 +1,4 @@
-<link href="{{ asset('css/Profile.index.css') }}" rel="stylesheet">
+<link href="{{ asset('css/Student.index.css') }}" rel="stylesheet">
 @extends('layouts.app')
 
 @section('content')
@@ -71,6 +71,23 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="number" class="col-md-4 col-form-label text-md-right">Contact Number</label>
+
+                            <div class="col-md-6">
+                                <input id="number" type="text"
+                                       class="form-control @error('number') is-invalid @enderror" name="number"
+                                       value="{{ $user->number }}" required autocomplete="number"
+                                       readonly placeholder="number" autofocus>
+
+                                @error('number')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="gender" class="col-md-4 col-form-label text-md-right">Gender</label>
 
                             <div class="col-md-6">
@@ -100,19 +117,24 @@
                             <div class="col-md-6">
                                 <select class="form-control" name="cast" id="cast">
                                     <option value="0" selected disabled>Select Cast</option>
-                                    <option value="gen" {{ $user->StudentProfile->cast == 'gen' ? 'selected' : null }}>
+                                    <option
+                                        value="gen" {{ $user->StudentProfile->cast == 'gen' ? 'selected' : null }}>
                                         General
                                     </option>
-                                    <option value="obc" {{ $user->StudentProfile->cast == 'obc' ? 'selected' : null }}>
+                                    <option
+                                        value="obc" {{ $user->StudentProfile->cast == 'obc' ? 'selected' : null }}>
                                         OBC
                                     </option>
-                                    <option value="sc" {{ $user->StudentProfile->cast == 'sc' ? 'selected' : null }}>
+                                    <option
+                                        value="sc" {{ $user->StudentProfile->cast == 'sc' ? 'selected' : null }}>
                                         SC
                                     </option>
-                                    <option value="st" {{ $user->StudentProfile->cast == 'st' ? 'selected' : null }}>
+                                    <option
+                                        value="st" {{ $user->StudentProfile->cast == 'st' ? 'selected' : null }}>
                                         ST
                                     </option>
-                                    <option value="oth" {{ $user->StudentProfile->cast == 'oth' ? 'selected' : null }}>
+                                    <option
+                                        value="oth" {{ $user->StudentProfile->cast == 'oth' ? 'selected' : null }}>
                                         Other
                                     </option>
                                 </select>
@@ -165,7 +187,8 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="lane3" class="col-md-4 col-form-label text-md-right">Lane 3/ Lankmark</label>
+                            <label for="lane3" class="col-md-4 col-form-label text-md-right">Lane 3/
+                                Lankmark</label>
 
                             <div class="col-md-6">
                                 <input id="lane3" type="text"
@@ -344,28 +367,34 @@
                         <h4>Education</h4>
 
                         <div class="form-group row">
-                            <label for="degree" class="col-md-4 col-form-label text-md-right">Pass Out Degree</label>
+                            <label for="degree" class="col-md-4 col-form-label text-md-right">Pass Out
+                                Degree</label>
 
                             <div class="col-md-6">
                                 <select class="form-control" name="degree" id="degree" required>
                                     <option value="0" disabled selected>Select Your Highest Education</option>
-                                    <option value="12" {{ $user->StudentProfile->degree == '12'? 'selected' : null }}>
+                                    <option
+                                        value="12" {{ $user->StudentProfile->degree == '12'? 'selected' : null }}>
                                         12th
                                     </option>
                                     <option
                                         value="diploma" {{ $user->StudentProfile->degree == 'diploma'? 'selected' : null }}>
                                         Diploma
                                     </option>
-                                    <option value="1" {{ $user->StudentProfile->degree == '1'? 'selected' : null }}>1st
+                                    <option value="1" {{ $user->StudentProfile->degree == '1'? 'selected' : null }}>
+                                        1st
                                         Year
                                     </option>
-                                    <option value="2" {{ $user->StudentProfile->degree == '2'? 'selected' : null }}>2nd
+                                    <option value="2" {{ $user->StudentProfile->degree == '2'? 'selected' : null }}>
+                                        2nd
                                         Year
                                     </option>
-                                    <option value="3" {{ $user->StudentProfile->degree == '3'? 'selected' : null }}>3rd
+                                    <option value="3" {{ $user->StudentProfile->degree == '3'? 'selected' : null }}>
+                                        3rd
                                         Year
                                     </option>
-                                    <option value="4" {{ $user->StudentProfile->degree == '4'? 'selected' : null }}>4th
+                                    <option value="4" {{ $user->StudentProfile->degree == '4'? 'selected' : null }}>
+                                        4th
                                         Year
                                     </option>
                                 </select>
@@ -379,9 +408,10 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="marks" class="col-md-4 col-form-label text-md-right">Marks/Percentage</label>
+                            <label for="marks"
+                                   class="col-md-4 col-form-label text-md-right">Marks/Percentage</label>
                             <div class="col-md-6">
-                                <input id="marks" type="number"
+                                <input id="marks" type="number" min="1" max="100"
                                        class="form-control @error('marks') is-invalid @enderror" name="marks"
                                        value="{{ $user->StudentProfile->marks }}" required autocomplete="marks"
                                        placeholder="Enter Marks" autofocus>

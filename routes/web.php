@@ -21,3 +21,8 @@ Route::get('/student/profile','ProfileController@show');
 Route::PATCH('/student/profile','ProfileController@update');
 
 Route::get('/home','HomeController@index');
+
+Route::get('/admin/register','AdminController@register');
+Route::get('/admin/pending','AdminController@pending');
+Route::post('/admin/accept/{userId}','AdminController@accept');
+Route::post('/admin/reject/{userId}','AdminController@reject');

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,8 +22,24 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(User $user)
     {
-        return view('Profile.Student.home');
+        if(auth()->user()->user_type == 'admin')
+        {
+            if(auth()->user()->pending == '0')
+            {
+                $data = $user->all();
+                $user = auth()->user()->email;
+                return view('Profile.Admin.dashboard',compact('data','user'));
+            }
+            else
+            {
+                return view('profile.Admin.requested');
+            }
+        }
+        else
+        {
+            return view('Profile.Student.home');
+        }
     }
 }

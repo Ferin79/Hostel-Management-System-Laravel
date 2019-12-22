@@ -1,0 +1,20 @@
+.card-wrapper
+{
+    width: 45%;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+@media(max-width: 990px){
+    .card-wrapper
+    {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+}

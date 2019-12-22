@@ -15,7 +15,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('User Register') }}</div>
+                    <div class="card-header">Admin Registration</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('register') }}">
@@ -119,8 +119,8 @@
                                            placeholder="confirm password">
                                 </div>
                             </div>
-                            <input type="hidden" readonly value="user" id="user_type" name="user_type">
-                            <input type="hidden" readonly value="0" id="pending" name="pending">
+                            <input type="hidden" readonly value="admin" name="user_type">
+                            <input type="hidden" readonly value="1" name="pending">
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
