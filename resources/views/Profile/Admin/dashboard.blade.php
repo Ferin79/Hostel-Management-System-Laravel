@@ -5,31 +5,64 @@
 
 @section('content')
     <div class="container d-flex justify-content-center flex-wrap">
-        @if($user == 'darkKiller@gmail.com')
+        @if($user == 'test@admin.com')
             <div class="card-wrapper card-5" id="register-request">
                 <div class="text-wrapper">
                     <h3>Register Request</h3>
                     @php
-                        $len = 0;
+                        $Admin_len = 0;
+                        $User_len = 0;
+                        $sub_admin = 0;
                         foreach ($data as $val)
                             {
-                                if($val->pending == 1)
+                                if($val->user_type == 'admin' && $val->pending == '1' && $val->email != 'test@admin.com')
                                     {
-                                        $len = $len + 1;
+                                        $Admin_len = $Admin_len + 1;
+                                    }
+                                else if($val->user_type == 'admin' && $val->pending == '0' && $val->email != 'test@admin.com')
+                                    {
+                                        $sub_admin = $sub_admin + 1;
+                                    }
+                                else if($val->user_type == 'user')
+                                    {
+                                        $User_len = $User_len + 1;
+                                    }
+                                else
+                                    {
+
                                     }
                             }
                     @endphp
-                    <h5>{{ $len }}</h5>
+                    <h5>{{ $Admin_len }}</h5>
                 </div>
                 <div class="icon-wrapper">
                     <i class="fa fa-calendar fa-4x"></i>
                 </div>
             </div>
+
+            <div id="manage-admin" class="card-wrapper card-4">
+                <div class="text-wrapper">
+                    <h3>Manage Sub-Admin</h3>
+                    <h5>{{ $sub_admin }}</h5>
+                </div>
+                <div class="icon-wrapper">
+                    <i class="fa fa-users fa-4x"></i>
+                </div>
+            </div>
         @endif
 
+        <div id="manage-student" class="card-wrapper card-2">
+            <div class="text-wrapper">
+                <h3>Manage Student</h3>
+                <h5>{{ $User_len }}</h5>
+            </div>
+            <div class="icon-wrapper">
+                <i class="fa fa-user fa-4x"></i>
+            </div>
+        </div>
         <div class="card-wrapper card-1">
             <div class="text-wrapper">
-                <h3>Rooms Available</h3>
+                <h3>Total Rooms</h3>
                 <h5>20</h5>
             </div>
             <div class="icon-wrapper">
@@ -37,31 +70,12 @@
             </div>
         </div>
 
-        <div class="card-wrapper card-2">
-            <div class="text-wrapper">
-                <h3>Student Applied</h3>
-                <h5>8</h5>
-            </div>
-            <div class="icon-wrapper">
-                <i class="fa fa-user fa-4x"></i>
-            </div>
-        </div>
-
         <div class="card-wrapper card-3">
             <div class="text-wrapper">
-                <h3>View Seats Matrix</h3>
+                <h3>Edit Seats Matrix</h3>
             </div>
             <div class="icon-wrapper">
                 <i class="fa fa-list-alt fa-4x"></i>
-            </div>
-        </div>
-
-        <div class="card-wrapper card-4">
-            <div class="text-wrapper">
-                <h3>Mess's Menu</h3>
-            </div>
-            <div class="icon-wrapper">
-                <img src="{{url('images/pizza.png')}}">
             </div>
         </div>
 

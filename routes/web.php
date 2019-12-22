@@ -24,5 +24,9 @@ Route::get('/home','HomeController@index');
 
 Route::get('/admin/register','AdminController@register');
 Route::get('/admin/pending','AdminController@pending');
+Route::get('/admin/manage-admin','AdminController@manageAdmin');
+Route::get('/admin/manage-student','AdminController@manageStudent');
+
 Route::post('/admin/accept/{userId}','AdminController@accept');
 Route::post('/admin/reject/{userId}','AdminController@reject');
+Route::post('/admin/block/{userId}','AdminController@block');

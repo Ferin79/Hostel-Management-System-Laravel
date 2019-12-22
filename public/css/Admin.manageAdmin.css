@@ -1,0 +1,18 @@
+.card-wrapper
+{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    box-shadow: 1px 1px 15px 5px grey;
+    border-radius: 20px;
+    padding: 15px;
+    background-color: whitesmoke;
+    margin: 15px auto;
+}
+@media(max-width: 789px) {
+    .card-wrapper
+    {
+        margin: 15px auto;
+    }
+}

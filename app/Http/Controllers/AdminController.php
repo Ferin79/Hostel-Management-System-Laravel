@@ -33,5 +33,26 @@ class AdminController extends Controller
     public function reject($user)
     {
         User::find($user)->delete();
+        return redirect('/admin/pending');
+    }
+
+    public function block($user)
+    {
+        $data = User::find($user);
+        $data->pending = '1';
+        $data->save();
+        return redirect('/admin/manage-admin');
+    }
+
+    public function manageAdmin()
+    {
+        $data = User::all();
+        return view('Profile.Admin.manageAdmin',compact('data'));
+    }
+
+    public function manageStudent()
+    {
+        $data = User::all();
+        return view('Profile.Admin.manageStudent',compact('data'));
     }
 }
