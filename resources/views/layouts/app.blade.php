@@ -22,7 +22,10 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <div class="py-4">
+            @yield('admin-content')
+        </div>
+        <nav class="navbar navbar-expand-md navbar-light ferin-navbar bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     Hostel

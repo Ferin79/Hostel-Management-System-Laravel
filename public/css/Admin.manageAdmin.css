@@ -1,3 +1,7 @@
+.ferin-navbar
+{
+    display: none !important;
+}
 .card-wrapper
 {
     width: 100%;
@@ -9,10 +13,36 @@
     padding: 15px;
     background-color: whitesmoke;
     margin: 15px auto;
+    transition: all 0.3s ease-in-out;
+}
+.card-wrapper:hover
+{
+    cursor: pointer;
+    transform: translateY(-10px);
+}
+.container#blur-wrapper.active
+{
+    filter: blur(20px);
+    pointer-events: none;
+    user-select: none;
+}
+.img-profile
+{
+    height: 100px;
+    width: 100px;
 }
 @media(max-width: 789px) {
     .card-wrapper
     {
-        margin: 15px auto;
+        margin: 10px 0px;
     }
+    .img-profile
+    {
+        display: none !important;
+    }
+    .info-wrapper h2
+    {
+        font-size: 20px;
+    }
+
 }
