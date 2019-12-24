@@ -7,16 +7,13 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function register()
+    public function __construct()
     {
-        if(auth()->user())
-        {
-            return redirect('/home');
-        }
-        else
-        {
-            return view('Profile.Admin.register');
-        }
+        $this->middleware('auth');
+    }
+    public function adminHome()
+    {
+        return view('Profile.Admin.home');
     }
     public function pending(User $user)
     {

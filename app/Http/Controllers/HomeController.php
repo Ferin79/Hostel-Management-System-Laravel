@@ -12,16 +12,27 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    public function register()
+    {
+        if(auth()->user())
+        {
+            return redirect('/admin');
+        }
+        else
+        {
+            return view('Profile.Admin.register');
+        }
+    }
     public function index(User $user)
     {
         if(auth()->user()->user_type == 'admin')

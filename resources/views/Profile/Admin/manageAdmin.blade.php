@@ -47,7 +47,8 @@
                                     {{ __('Logout') }}
                                 </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                      style="display: none;">
                                     @csrf
                                 </form>
                             </li>
@@ -86,5 +87,7 @@
                 </div>
             </div>
         </div>
+    @else
+        <script>window.location = "/unauth";</script>
     @endif
 @endsection

@@ -85,5 +85,7 @@
                 </div>
             </div>
         </div>
+    @else
+        <script>window.location = "/unauth";</script>
     @endif
 @endsection
