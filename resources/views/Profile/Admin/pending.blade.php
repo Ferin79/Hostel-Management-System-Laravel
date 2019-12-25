@@ -55,7 +55,7 @@
                         </ul>
                     </div>
                 </nav>
-
+                <h1 class="d-flex justify-content-center align-items-center p-3">Manage Pending Register Request</h1>
                 <div class="container">
                     <div class="row">
 
@@ -68,11 +68,11 @@
                                             <h6>{{ $user->email }}</h6>
                                         </div>
                                         <div class="button-wrapper">
-                                            <form action="/admin/accept/{{ $user->id }}" method="POST">
+                                            <form class="accept_acc" action="/admin/accept/{{ $user->id }}" method="POST">
                                                 @csrf
                                                 <button class="btn btn-info">Accept</button>
                                             </form>
-                                            <form action="/admin/reject/{{ $user->id }}" method="POST">
+                                            <form class="delete_acc" action="/admin/reject/{{ $user->id }}" method="POST">
                                                 @csrf
                                                 <button class="btn btn-danger">Reject</button>
                                             </form>

@@ -1,6 +1,5 @@
 <link href="{{ asset('css/simple-sidebar.css') }}" rel="stylesheet">
 <link href="{{ asset('css/Admin.manageAdmin.css') }}" rel="stylesheet">
-<script src="{{ asset('js/app.js')}}"></script>
 <script src="{{ asset('js/Admin.manageStudent.js')}}"></script>
 @extends('layouts.app')
 
@@ -55,7 +54,7 @@
                         </ul>
                     </div>
                 </nav>
-
+                <h1 class="d-flex justify-content-center align-items-center p-3">Manage Admins</h1>
                 <div class="container">
                     <div class="row">
                         @foreach($data as $user)
@@ -70,11 +69,11 @@
                                             <h6>Rooms Added: {{ $user->id }}</h6>
                                         </div>
                                         <div class="button-wrapper">
-                                            <form method="POST" action="/admin/reject/{{ $user->id }}">
+                                            <form method="POST" class="delete_acc" action="/admin/reject/{{ $user->id }}">
                                                 @csrf
-                                                <button class="btn btn-danger" type="submit">Delete Account</button>
+                                                <button class="btn btn-danger"  type="submit">Delete Account</button>
                                             </form>
-                                            <form method="POST" action="/admin/block/{{ $user->id }}">
+                                            <form method="POST" class="block_acc"  action="/admin/block/{{ $user->id }}">
                                                 @csrf
                                                 <button class="btn btn-secondary" type="submit">Block Account</button>
                                             </form>

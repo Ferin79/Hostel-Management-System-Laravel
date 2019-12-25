@@ -31,3 +31,12 @@ Route::get('/admin/manage-student','AdminController@manageStudent');
 Route::post('/admin/accept/{userId}','AdminController@accept');
 Route::post('/admin/reject/{userId}','AdminController@reject');
 Route::post('/admin/block/{userId}','AdminController@block');
+Route::get('/admin/getUser/{userId}',function ($userId){
+    $data = \App\User::find($userId);
+    $data_more = \App\User::find($userId)->StudentProfile;
+    $data = array_merge([
+        $data,
+        $data_more
+    ]);
+    return $data;
+});

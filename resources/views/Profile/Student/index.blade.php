@@ -1,4 +1,6 @@
 <link href="{{ asset('css/Student.index.css') }}" rel="stylesheet">
+<script src="{{ asset('js/Student.index.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"></script>
 @extends('layouts.app')
 
 @section('content')
@@ -512,7 +514,7 @@
                         </div>
                     </div>
                     <div class="button-wrapper p-5 m-5">
-                        <button class="btn btn-primary" type="submit">Save Changes</button>
+                        <button class="btn btn-primary" id="profileBtn" type="submit">Save Changes</button>
                     </div>
                 </div>
             </form>

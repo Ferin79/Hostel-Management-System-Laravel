@@ -1,6 +1,5 @@
 <link href="{{ asset('css/simple-sidebar.css') }}" rel="stylesheet">
 <link href="{{ asset('css/Admin.manageAdmin.css') }}" rel="stylesheet">
-<script src="{{ asset('js/app.js')}}"></script>
 <script src="{{ asset('js/Admin.manageStudent.js')}}"></script>
 @extends('layouts.app')
 
@@ -55,7 +54,7 @@
                         </ul>
                     </div>
                 </nav>
-
+                <h1 class="d-flex justify-content-center align-items-center p-3">Manage Students</h1>
                 <div class="container">
                     <div class="row">
                         @foreach($data as $user)
@@ -74,15 +73,16 @@
                                             <h6>Sem: {{ $user->StudentProfile->sem }}</h6>
                                         </div>
                                         <div class="button-wrapper">
-                                            <form action="{{ $user->id }}">
-                                                <button class="btn btn-primary" id="view-detail">View Details</button>
+                                            <form onsubmit="(e) => {e.preventDefault();}">
+                                                <button class="btn btn-primary showData {{$user->id}}" data-toggle="modal" data-target="#exampleModalCenter">View Details</button>
                                             </form>
-                                            <form method="POST" action="/admin/reject/{{ $user->id }}">
+                                            <form method="POST" class="delete_acc" action="/admin/reject/{{ $user->id }}">
                                                 @csrf
                                                 <button class="btn btn-danger" type="submit">Delete Account</button>
                                             </form>
                                         </div>
                                     </div>
+                                    @include('Profile.Admin.Modal')
                                 </div>
                             @endif
                         @endforeach
