@@ -1,5 +1,9 @@
 @extends('layouts.app')
 @section('content')
+    @php
+        $admin = env('ADMIN');
+    @endphp
+    @if(Auth::user()->user_type == 'admin')
     <div class="container">
         <div class="row d-flex flex-row justify-content-center align-items-center">
             <div class="col-md-6 col-sm-12">
@@ -12,4 +16,7 @@
             </div>
         </div>
     </div>
+    @else
+        <script>window.location = "/unauth";</script>
+    @endif
 @endsection

@@ -28,6 +28,8 @@ Route::PATCH('/student/profile','ProfileController@update');
 Route::get('/admin/pending','AdminController@pending');
 Route::get('/admin/manage-admin','AdminController@manageAdmin');
 Route::get('/admin/manage-student','AdminController@manageStudent');
+Route::get('/admin/add-room','AdminController@showAddRoom');
+Route::post('/admin/add-room','AdminController@addRoom');
 Route::post('/admin/accept/{userId}','AdminController@accept');
 Route::post('/admin/reject/{userId}','AdminController@reject');
 Route::post('/admin/block/{userId}','AdminController@block');

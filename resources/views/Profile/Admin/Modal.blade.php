@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Student Title</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Student Details</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -31,6 +31,9 @@
 <script>
     window.onload = function () {
         $('.showData').click(function () {
+            $('.show_details').submit(function (e) {
+                e.preventDefault();
+            });
             var myClass = $(this).attr("class");
             var data = myClass.split(' ');
             var id = data[data.length-1];

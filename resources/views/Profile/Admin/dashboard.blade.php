@@ -5,13 +5,16 @@
 
 @section('content')
     <div class="container d-flex justify-content-center flex-wrap">
-        @if($user == 'test@admin.com')
+        @php
+            $admin = env('ADMIN');
+        @endphp
+        @if($user == $admin)
             <div class="card-wrapper card-5" id="register-request">
                 <div class="text-wrapper">
                     <h3>Register Request</h3>
                     @php
                         $Admin_len = 0;
-                        $User_len = 0;
+                        $user_len = 0;
                         $sub_admin = 0;
                         foreach ($data as $val)
                             {
@@ -25,7 +28,7 @@
                                     }
                                 else if($val->user_type == 'user')
                                     {
-                                        $User_len = $User_len + 1;
+                                        $user_len = $user_len + 1;
                                     }
                                 else
                                     {
@@ -54,7 +57,7 @@
         <div id="manage-student" class="card-wrapper card-2">
             <div class="text-wrapper">
                 <h3>Manage Student</h3>
-                <h5>{{ $User_len }}</h5>
+                <h5>{{ $user_len ?? ''}}</h5>
             </div>
             <div class="icon-wrapper">
                 <i class="fa fa-user fa-4x"></i>
