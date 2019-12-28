@@ -65,10 +65,8 @@ class AdminController extends Controller
     public function addRoom()
     {
         $data = request()->validate([
-            'room_no' => 'required',
-            'department' => 'required',
-            'ac' => 'required',
-            'bed_no' => 'required',
+            'room_type' => 'required',
+            'room_select' => 'required',
             'price' => 'required',
             'image1' => ['required','image'],
             'image2' => ['required','image'],

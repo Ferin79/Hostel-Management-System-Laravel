@@ -507,66 +507,207 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12 pt-4">
-                    <div class="basic-details-wrapper">
-                        <h4>Fill Out All details</h4>
-                        <hr/>
-                        <h4>Guardian Details</h4>
+                    <form action="#" method="POST">
+                        <div class="basic-details-wrapper">
+                            <h4>Fill Out All details</h4>
+                            <hr/>
+                            <h4>Guardian Details</h4>
 
-                        <div class="form-group row">
-                            <label for="first_name" class="col-md-4 col-form-label text-md-right">Guardian Name</label>
+                            <div class="form-group row">
+                                <label for="guard_name" class="col-md-4 col-form-label text-md-right">Guardian
+                                    Name</label>
 
-                            <div class="col-md-6">
-                                <input id="first_name" type="text"
-                                       class="form-control @error('first_name') is-invalid @enderror"
-                                       name="first_name"
-                                       required autocomplete="first_name"
-                                       placeholder="Guardian Name" autofocus>
+                                <div class="col-md-6">
+                                    <input id="guard_name" type="text"
+                                           class="form-control @error('first_name') is-invalid @enderror"
+                                           name="first_name"
+                                           required autocomplete="first_name"
+                                           placeholder="Guardian Name" autofocus>
 
-                                @error('first_name')
-                                <span class="invalid-feedback" role="alert">
+                                    @error('first_name')
+                                    <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">Guardian Email</label>
+                            <div class="form-group row">
+                                <label for="guard_email" class="col-md-4 col-form-label text-md-right">Guardian
+                                    Email</label>
 
-                            <div class="col-md-6">
-                                <input id="email" type="text"
-                                       class="form-control @error('email') is-invalid @enderror" name="email"
-                                       required autocomplete="email"
-                                       placeholder="Guardian Email" autofocus>
+                                <div class="col-md-6">
+                                    <input id="guard_email" type="text"
+                                           class="form-control @error('email') is-invalid @enderror" name="email"
+                                           required autocomplete="email"
+                                           placeholder="Guardian Email" autofocus>
 
-                                @error('email')
-                                <span class="invalid-feedback" role="alert">
+                                    @error('email')
+                                    <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                    @enderror
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label for="number" class="col-md-4 col-form-label text-md-right">Contact
-                                Number</label>
+                            <div class="form-group row">
+                                <label for="guard_number" class="col-md-4 col-form-label text-md-right">Contact
+                                    Number</label>
 
-                            <div class="col-md-6">
-                                <input id="number" type="text"
-                                       class="form-control @error('number') is-invalid @enderror" name="number"
-                                       required autocomplete="number"
-                                       placeholder=" Guardian Number" autofocus>
+                                <div class="col-md-6">
+                                    <input id="guard_number" type="text"
+                                           class="form-control @error('number') is-invalid @enderror" name="number"
+                                           required autocomplete="number"
+                                           placeholder=" Guardian Number" autofocus>
 
-                                @error('number')
-                                <span class="invalid-feedback" role="alert">
+                                    @error('number')
+                                    <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                    @enderror
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="preference-wrapper">
+                            <hr/>
+                            <h4>Preferences</h4>
+
+
+                            <div class="form-group row">
+                                <label for="room_type" class="col-md-4 col-form-label text-md-right">Room Type</label>
+                                <div class="col-md-6">
+                                    <select class="form-control" required name="room_type" id="room_type">
+                                        <option value="0" selected disabled>Select Type</option>
+                                        @foreach($roomDetails as $room)
+                                            <option value="{{$room->room_select}}">{{ $room->room_select }} Sharing -- {{ $room->price }} INR
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="ac" class="col-md-4 col-form-label text-md-right">Room With:</label>
+                                <div class="col-md-6 ac">
+                                    <input type="radio" class="ac" name="ac" id="ac_on" required value="1"><label>With A.C.</label>
+                                    <input type="radio" class="ac" name="ac" id="ac_off" required value="0"><label>Non A.C.</label>
+                                    <span><p>1500 INR More for A.C. rooms</p></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="mess_food" class="col-md-4 col-form-label text-md-right">Food in
+                                    Mess:</label>
+                                <div class="col-md-6">
+                                    <input type="radio" name="mess_food" required value="1"><label>With Food</label>
+                                    <input type="radio" name="mess_food" required value="0"><label>Without Food</label>
+                                    <span><p>2500 INR More for Food</p></span>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="sub_total" class="col-md-4 col-form-label text-md-right">
+                                    Sub Total</label>
+
+                                <div class="col-md-6">
+                                    <input id="sub_total" type="text"
+                                           class="form-control @error('sub_total') is-invalid @enderror"
+                                           name="sub_total"
+                                           required value=""
+                                           readonly autofocus>
+
+                                    @error('sub_total')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="duration" class="col-md-4 col-form-label text-md-right">Duration</label>
+                                <div class="col-md-6">
+                                    <select class="form-control" name="duration" id="duration">
+                                        <option value="1">1 Month</option>
+                                        <option value="2">2 Months</option>
+                                        <option value="3">3 Months</option>
+                                        <option value="4">4 Months</option>
+                                        <option value="5">5 Months</option>
+                                        <option value="6" selected>6 Months</option>
+                                        <option value="7">7 Months</option>
+                                        <option value="8">8 Months</option>
+                                        <option value="9">9 Months</option>
+                                        <option value="10">10 Months</option>
+                                        <option value="11">11 Months</option>
+                                        <option value="12">12 Months</option>
+                                    </select>
+                                    <button class="btn btn-info mt-3" id="calculate">Calculate Total</button>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="total" class="col-md-4 col-form-label text-md-right">
+                                    Total Price</label>
+
+                                <div class="col-md-6">
+                                    <input id="total" type="text"
+                                           class="form-control @error('total') is-invalid @enderror" name="total"
+                                           required value=""
+                                           readonly autofocus>
+
+                                    @error('total')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                    <button class="btn btn-success mt-5" type="submit">Apply Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
+            <script>
+                window.onload = function () {
+                    $('#calculate').click(function (e) {
+                        e.preventDefault();
+                        flag = 0;
+                        var total = 0;
+                        var data = $('#room_type :selected').text();
+                        var arr = data.trim().split(' ');
+                        if(arr.length > 3)
+                        {
+                            data = parseInt(arr[arr.length-2]);
+                            total = total + data;
+                            if($('.ac').is(':checked'))
+                            {
+                                if(flag == 0)
+                                {
+                                    if($('.ac:checked').val())
+                                    {
+                                        flag = 1;
+                                        total = total + 1500;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                swal({
+                                    title: "Error!",
+                                    text: "Please Select AC Or Non AC",
+                                    icon: "error",
+                                    button: "Aww yiss!",
+                                });
+                            }
+
+                        }
+                        else
+                        {
+                            swal({
+                                title: "Error!",
+                                text: "Please Select Room Type",
+                                icon: "error",
+                                button: "Aww yiss!",
+                            });
+                        }
+                    })
+                }
+            </script>
         </div>
     @else
         <script>window.location.href = '/unauth'</script>

@@ -50,6 +50,14 @@
                     <i class="fa fa-users fa-4x"></i>
                 </div>
             </div>
+            <div id="add_room" class="card-wrapper card-7">
+                <div class="text-wrapper">
+                    <h3>Add Rooms</h3>
+                </div>
+                <div class="icon-wrapper">
+                    <i class="fa fa-bed fa-4x"></i>
+                </div>
+            </div>
         @endif
 
         <div id="manage-student" class="card-wrapper card-2">
@@ -59,14 +67,6 @@
             </div>
             <div class="icon-wrapper">
                 <i class="fa fa-user fa-4x"></i>
-            </div>
-        </div>
-        <div id="add_room" class="card-wrapper card-7">
-            <div class="text-wrapper">
-                <h3>Add Rooms</h3>
-            </div>
-            <div class="icon-wrapper">
-                <i class="fa fa-bed fa-4x"></i>
             </div>
         </div>
         <div id="showRoom" class="card-wrapper card-1">

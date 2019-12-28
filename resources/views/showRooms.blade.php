@@ -30,12 +30,10 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
-                <div class="card-body">
-                    <h4 class="card-title">Room No: {{ $value->room_no }}</h4>
-                    <h5 class="card-title">Department: {{ $value->department }}</h5>
-                    <p class="card-text">{{ $value->ac ? 'With A.C' : 'Without A.C' }}.</p>
+                <div class="card-body" style="text-align: center;margin: 10px;">
+                    <h4 class="card-title">Room Name: {{ $value->room_type }}</h4>
+                    <h5 class="card-title">Room Type: {{ $value->room_select }}</h5>
                     <p class="card-text">Price: <strong>{{ $value->price }} INR</strong> per head per Month</p>
-                    <p class="card-text">Total Beds Available: <strong>{{ $value->bed_no }}</strong></p>
                 </div>
             </div>
         @endforeach

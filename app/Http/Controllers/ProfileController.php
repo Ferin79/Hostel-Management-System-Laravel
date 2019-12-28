@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\RoomDetails;
 use App\StudentProfile;
 use App\User;
 use Illuminate\Http\Request;
@@ -55,6 +56,7 @@ class ProfileController extends Controller
     public function apply()
     {
         $user = auth()->user();
-        return view('Profile.Student.applyRoom',compact('user'));
+        $roomDetails = RoomDetails::all();
+        return view('Profile.Student.applyRoom',compact('user','roomDetails'));
     }
 }

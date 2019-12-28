@@ -16,11 +16,8 @@ class CreateRoomDetailsTable extends Migration
         Schema::create('room_details', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->string('room_no')->nullable();
-            $table->string('department')->nullable();
-            $table->boolean('ac')->nullable();
-            $table->integer('bed_no')->nullable();
-            $table->integer('occupied')->nullable();
+            $table->string('room_type')->nullable();
+            $table->string('room_select')->nullable();
             $table->integer('price')->nullable();
             $table->text('image1')->nullable();
             $table->text('image2')->nullable();

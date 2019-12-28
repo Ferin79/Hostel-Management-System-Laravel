@@ -15,14 +15,14 @@
                     <div class="col-sm-12 input_field_area">
 
                         <div class="form-group row">
-                            <label for="room-no" class="col-md-4 col-form-label text-md-right">Room No</label>
+                            <label for="room_type" class="col-md-4 col-form-label text-md-right">Room Name</label>
                             <div class="col-md-8">
-                                <input id="room-no" type="text"
-                                       class="form-control @error('room-no') is-invalid @enderror"
-                                       name="room_no" value="{{ old('room-no') }}" required
-                                       autocomplete="room-no" placeholder="Room No Like: D-202" autofocus>
+                                <input id="room_type" type="text"
+                                       class="form-control @error('room_type') is-invalid @enderror"
+                                       name="room_type" value="{{ old('room_type') }}" required
+                                       autocomplete="room_type" placeholder="Eg: Delux, Double Sharing" autofocus>
 
-                                @error('room-no')
+                                @error('room_type')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -31,62 +31,23 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="department"
-                                   class="col-md-4 col-form-label text-md-right">Department</label>
+                            <label for="room_select"
+                                   class="col-md-4 col-form-label text-md-right">Room Type</label>
                             <div class="col-md-8">
-                                <select class="form-control" required name="department" id="department">
-                                    <option value="0" selected disabled>Select Department</option>
-                                    <option value="computer">Computer</option>
-                                    <option value="Electrical">Electrical</option>
-                                    <option value="Civil">Civil</option>
-                                    <option value="mechanical">Mechanical</option>
-                                    <option value="ec">E.C</option>
+                                <select class="form-control" required name="room_select" id="room_select">
+                                    <option value="0" selected disabled>Select Room Type</option>
+                                    <option value="Single">Single</option>
+                                    <option value="Double">Double Sharing</option>
+                                    <option value="Triple">Triple Sharing</option>
+                                    <option value="other">Other</option>
                                 </select>
-                                @error('department')
+                                @error('room_select')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="ac"
-                                   class="col-md-4 col-form-label text-md-right">A.C</label>
-                            <div class="col-md-8">
-                                <input id="ac" type="radio"
-                                       class="@error('ac') is-invalid @enderror" name="ac"
-                                       value="1"
-                                ><label>With A.C</label>
-
-                                <input id="nonac" type="radio"
-                                       class="@error('ac') is-invalid @enderror" name="ac"
-                                       value="0"
-                                ><label>Non A.C</label>
-                                @error('ac')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="number_bed" class="col-md-4 col-form-label text-md-right">Number Of Beds</label>
-                            <div class="col-md-8">
-                                <input id="number_bed" type="number" min="1" max="10"
-                                       class="form-control @error('number_bed') is-invalid @enderror"
-                                       name="bed_no" value="{{ old('number_bed') }}" required
-                                       autocomplete="number_bed" placeholder="Number Of Beds" autofocus>
-
-                                @error('number_bed')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
                         <div class="form-group row">
                             <label for="price" class="col-md-4 col-form-label text-md-right">Price per Head</label>
                             <div class="col-md-8">
