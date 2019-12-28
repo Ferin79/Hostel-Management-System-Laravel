@@ -22,7 +22,7 @@
 </head>
 <body>
     <div id="app">
-        <div class="py-4">
+        <div>
             @yield('admin-content')
         </div>
         <nav class="navbar navbar-expand-md navbar-light ferin-navbar bg-white shadow-sm">

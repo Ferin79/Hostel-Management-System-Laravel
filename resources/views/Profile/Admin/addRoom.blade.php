@@ -19,7 +19,7 @@
                             <div class="col-md-8">
                                 <input id="room-no" type="text"
                                        class="form-control @error('room-no') is-invalid @enderror"
-                                       name="room-no" value="{{ old('room-no') }}" required
+                                       name="room_no" value="{{ old('room-no') }}" required
                                        autocomplete="room-no" placeholder="Room No Like: D-202" autofocus>
 
                                 @error('room-no')
@@ -76,7 +76,7 @@
                             <div class="col-md-8">
                                 <input id="number_bed" type="number" min="1" max="10"
                                        class="form-control @error('number_bed') is-invalid @enderror"
-                                       name="bed-no" value="{{ old('number_bed') }}" required
+                                       name="bed_no" value="{{ old('number_bed') }}" required
                                        autocomplete="number_bed" placeholder="Number Of Beds" autofocus>
 
                                 @error('number_bed')
@@ -131,27 +131,13 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="image3" class="col-md-4 col-form-label text-md-right">Image 3</label>
-                            <div class="col-md-8">
-                                <input id="image3" type="file"
-                                       class="form-control @error('image3') is-invalid @enderror"
-                                       name="image3" autofocus accept="image/*">
-                                @error('image3')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
                         <div class="pl-5 ml-5 pb-5">
                             <button type="submit" class="btn btn-primary ml-5 mt-3">Add Room</button>
                         </div>
                     </div>
                     <div class="col col-sm-12 img-wrapper">
-                        <img id="blah1" class="img-fluid" src="#" alt="your image" />
-                        <img id="blah2" src="#" class="img-fluid" alt="your image" />
-                        <img id="blah3" class="img-fluid" src="#" alt="your image" />
+                        <img id="blah1" class="img-fluid" src="#" alt="your image"/>
+                        <img id="blah2" src="#" class="img-fluid" alt="your image"/>
                     </div>
                 </form>
             </div>
@@ -160,14 +146,15 @@
                     if (input.files && input.files[0]) {
                         var reader = new FileReader();
 
-                        reader.onload = function(e) {
+                        reader.onload = function (e) {
                             $('#blah1').attr('src', e.target.result);
                         }
 
                         reader.readAsDataURL(input.files[0]);
                     }
                 }
-                $("#image1").change(function() {
+
+                $("#image1").change(function () {
                     readURL1(this);
                 });
 
@@ -176,31 +163,16 @@
                     if (input.files && input.files[0]) {
                         var reader = new FileReader();
 
-                        reader.onload = function(e) {
+                        reader.onload = function (e) {
                             $('#blah2').attr('src', e.target.result);
                         }
 
                         reader.readAsDataURL(input.files[0]);
                     }
                 }
-                $("#image2").change(function() {
+
+                $("#image2").change(function () {
                     readURL2(this);
-                });
-
-
-                function readURL3(input) {
-                    if (input.files && input.files[0]) {
-                        var reader = new FileReader();
-
-                        reader.onload = function(e) {
-                            $('#blah3').attr('src', e.target.result);
-                        }
-
-                        reader.readAsDataURL(input.files[0]);
-                    }
-                }
-                $("#image3").change(function() {
-                    readURL3(this);
                 });
             </script>
         </div>

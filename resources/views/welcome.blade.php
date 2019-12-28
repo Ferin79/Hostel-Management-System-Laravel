@@ -130,11 +130,13 @@
     </head>
     <body>
         <div class="flex-center position-ref">
+
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
                         <a href="/home">Home</a>
                         <a href="/student/profile">Profile</a>
+                        <a href="/showRooms">Rooms</a>
                         <a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -144,8 +146,8 @@
                             @csrf
                         </form>
                     @else
+                        <a href="/showRooms">View Rooms</a>
                         <a href="{{ route('login') }}">Login</a>
-
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}">Register</a>
                         @endif

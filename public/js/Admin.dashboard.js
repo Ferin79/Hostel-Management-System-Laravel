@@ -7,5 +7,11 @@ window.onload = function () {
     });
     document.querySelector("#manage-student").addEventListener('click',function () {
         window.location.href = '/admin/manage-student';
+    });
+    document.querySelector('#add_room').addEventListener('click',function () {
+        window.location.href = '/admin/add-room';
+    });
+    document.querySelector('#showRoom').addEventListener('click',function () {
+        window.location.href = '/showRooms';
     })
 };

@@ -1,6 +1,4 @@
 <link href="{{ asset('css/Student.home.css') }}" rel="stylesheet">
-<script src="{{ asset('js/Admin.dashboard.js')}}"></script>
-
 @extends('layouts.app')
 
 @section('content')
@@ -63,10 +61,18 @@
                 <i class="fa fa-user fa-4x"></i>
             </div>
         </div>
-        <div class="card-wrapper card-1">
+        <div id="add_room" class="card-wrapper card-7">
             <div class="text-wrapper">
-                <h3>Total Rooms</h3>
-                <h5>20</h5>
+                <h3>Add Rooms</h3>
+            </div>
+            <div class="icon-wrapper">
+                <i class="fa fa-bed fa-4x"></i>
+            </div>
+        </div>
+        <div id="showRoom" class="card-wrapper card-1">
+            <div class="text-wrapper">
+                <h3>View All Rooms</h3>
+                <h5>{{ $room_total ?? '' }}</h5>
             </div>
             <div class="icon-wrapper">
                 <i class="fa fa-building fa-4x"></i>
@@ -91,4 +97,5 @@
             </div>
         </div>
     </div>
+    <script src="{{ asset('js/Admin.dashboard.js')}}" defer></script>
 @endsection

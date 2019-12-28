@@ -51,4 +51,10 @@ class ProfileController extends Controller
 
         return redirect('/student/profile');
     }
+
+    public function apply()
+    {
+        $user = auth()->user();
+        return view('Profile.Student.applyRoom',compact('user'));
+    }
 }

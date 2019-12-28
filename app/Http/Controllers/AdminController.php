@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\RoomDetails;
 use App\User;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -64,10 +65,10 @@ class AdminController extends Controller
     public function addRoom()
     {
         $data = request()->validate([
-            'room-no' => 'required',
+            'room_no' => 'required',
             'department' => 'required',
             'ac' => 'required',
-            'bed-no' => 'required',
+            'bed_no' => 'required',
             'price' => 'required',
             'image1' => ['required','image'],
             'image2' => ['required','image'],
@@ -85,9 +86,11 @@ class AdminController extends Controller
                 'image2' => $imagePath2
             ];
         }
-        auth()->user()->RoomDetails->create(array_merge(
+        $new = new RoomDetails();
+        $new->create(array_merge(
             $data,
             $imageArray,
+            ['user_id' => auth()->user()->id]
         ));
         return redirect('/admin/add-room');
     }

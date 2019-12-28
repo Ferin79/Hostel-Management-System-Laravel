@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\RoomDetails;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -41,7 +42,8 @@ class HomeController extends Controller
             {
                 $data = $user->all();
                 $user = auth()->user()->email;
-                return view('Profile.Admin.dashboard',compact('data','user'));
+                $room_total = count(RoomDetails::all());
+                return view('Profile.Admin.dashboard',compact('data','user','room_total'));
             }
             else
             {

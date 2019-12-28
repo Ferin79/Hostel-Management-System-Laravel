@@ -1,0 +1,11 @@
+.container-fluid
+{
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.card-width
+{
+    width: 70%;
+}

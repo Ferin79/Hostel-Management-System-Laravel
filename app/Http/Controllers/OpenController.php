@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\RoomDetails;
 use Illuminate\Http\Request;
 
 class OpenController extends Controller
@@ -22,5 +23,10 @@ class OpenController extends Controller
     public function unauth()
     {
         return view('unauth');
+    }
+    public function showRooms()
+    {
+        $data = RoomDetails::all();
+        return view('showRooms',compact('data'));
     }
 }
