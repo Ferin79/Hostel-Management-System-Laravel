@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\RoomDetails;
+use App\StudentApply;
 use App\StudentProfile;
 use App\User;
 use Illuminate\Http\Request;
@@ -57,6 +58,35 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
         $roomDetails = RoomDetails::all();
-        return view('Profile.Student.applyRoom',compact('user','roomDetails'));
+        $data = StudentApply::all();
+        $data = $data->where('user_id',auth()->user()->id);
+        if(count($data) > 0)
+        {
+            return view('bookAlready');
+        }
+        else
+        {
+            return view('Profile.Student.applyRoom',compact('user','roomDetails'));
+        }
+    }
+    public function addApply()
+    {
+        $data = request()->validate([
+            "guard_name" => 'required',
+            "guard_email" => 'required',
+            "guard_number" => 'required',
+            "room_type" => 'required',
+            "ac" => "required",
+            "food" => "required",
+            "duration" => "required",
+            "total" => "required",
+        ]);
+        $new = new StudentApply();
+        $new->create(array_merge(
+            $data,
+            ['user_id' => auth()->user()->id]
+        ));
+
+        return redirect('/home');
     }
 }

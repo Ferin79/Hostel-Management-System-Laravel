@@ -26,6 +26,7 @@ Route::get('/showRooms','OpenController@showRooms');
 Route::get('/student/profile','ProfileController@show');
 Route::PATCH('/student/profile','ProfileController@update');
 Route::get('/student/apply','ProfileController@apply');
+Route::post('/student/apply','ProfileController@addApply');
 
 Route::get('/admin/pending','AdminController@pending');
 Route::get('/admin/manage-admin','AdminController@manageAdmin');

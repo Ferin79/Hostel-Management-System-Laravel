@@ -507,7 +507,8 @@
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-12 pt-4">
-                    <form action="#" method="POST">
+                    <form action="/student/apply" method="POST">
+                        @csrf
                         <div class="basic-details-wrapper">
                             <h4>Fill Out All details</h4>
                             <hr/>
@@ -520,7 +521,7 @@
                                 <div class="col-md-6">
                                     <input id="guard_name" type="text"
                                            class="form-control @error('first_name') is-invalid @enderror"
-                                           name="first_name"
+                                           name="guard_name"
                                            required autocomplete="first_name"
                                            placeholder="Guardian Name" autofocus>
 
@@ -538,7 +539,8 @@
 
                                 <div class="col-md-6">
                                     <input id="guard_email" type="text"
-                                           class="form-control @error('email') is-invalid @enderror" name="email"
+                                           class="form-control @error('email') is-invalid @enderror"
+                                           name="guard_email"
                                            required autocomplete="email"
                                            placeholder="Guardian Email" autofocus>
 
@@ -556,7 +558,8 @@
 
                                 <div class="col-md-6">
                                     <input id="guard_number" type="text"
-                                           class="form-control @error('number') is-invalid @enderror" name="number"
+                                           class="form-control @error('number') is-invalid @enderror"
+                                           name="guard_number"
                                            required autocomplete="number"
                                            placeholder=" Guardian Number" autofocus>
 
@@ -579,7 +582,8 @@
                                     <select class="form-control" required name="room_type" id="room_type">
                                         <option value="0" selected disabled>Select Type</option>
                                         @foreach($roomDetails as $room)
-                                            <option value="{{$room->room_select}}">{{ $room->room_select }} Sharing -- {{ $room->price }} INR
+                                            <option value="{{$room->room_select}}">{{ $room->room_select }} Sharing
+                                                -- {{ $room->price }} INR
                                             </option>
                                         @endforeach
                                     </select>
@@ -588,17 +592,21 @@
                             <div class="form-group row">
                                 <label for="ac" class="col-md-4 col-form-label text-md-right">Room With:</label>
                                 <div class="col-md-6 ac">
-                                    <input type="radio" class="ac" name="ac" id="ac_on" required value="1"><label>With A.C.</label>
-                                    <input type="radio" class="ac" name="ac" id="ac_off" required value="0"><label>Non A.C.</label>
+                                    <input type="radio" class="ac" name="ac" id="ac_on" required value="1"><label>With
+                                        A.C.</label>
+                                    <input type="radio" class="ac" name="ac" id="ac_off" required value="0"><label>Non
+                                        A.C.</label>
                                     <span><p>1500 INR More for A.C. rooms</p></span>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="mess_food" class="col-md-4 col-form-label text-md-right">Food in
                                     Mess:</label>
-                                <div class="col-md-6">
-                                    <input type="radio" name="mess_food" required value="1"><label>With Food</label>
-                                    <input type="radio" name="mess_food" required value="0"><label>Without Food</label>
+                                <div class="col-md-6 mess_food">
+                                    <input type="radio" class="mess_food" name="food" required value="1"><label>With
+                                        Food</label>
+                                    <input type="radio" class="mess_food" name="food" required value="0"><label>Without
+                                        Food</label>
                                     <span><p>2500 INR More for Food</p></span>
                                 </div>
                             </div>
@@ -630,14 +638,7 @@
                                         <option value="4">4 Months</option>
                                         <option value="5">5 Months</option>
                                         <option value="6" selected>6 Months</option>
-                                        <option value="7">7 Months</option>
-                                        <option value="8">8 Months</option>
-                                        <option value="9">9 Months</option>
-                                        <option value="10">10 Months</option>
-                                        <option value="11">11 Months</option>
-                                        <option value="12">12 Months</option>
                                     </select>
-                                    <button class="btn btn-info mt-3" id="calculate">Calculate Total</button>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -655,7 +656,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                    <button class="btn btn-success mt-5" type="submit">Apply Now</button>
+                                    <button class="btn btn-success m-3" id="onApply" type="submit">Apply Now</button>
                                 </div>
                             </div>
                         </div>
@@ -664,48 +665,55 @@
             </div>
             <script>
                 window.onload = function () {
-                    $('#calculate').click(function (e) {
-                        e.preventDefault();
-                        flag = 0;
+                    $('#duration').blur(function () {
                         var total = 0;
                         var data = $('#room_type :selected').text();
                         var arr = data.trim().split(' ');
-                        if(arr.length > 3)
-                        {
-                            data = parseInt(arr[arr.length-2]);
-                            total = total + data;
-                            if($('.ac').is(':checked'))
-                            {
-                                if(flag == 0)
-                                {
-                                    if($('.ac:checked').val())
-                                    {
-                                        flag = 1;
-                                        total = total + 1500;
-                                    }
+                        if (arr.length > 3) {
+                            data = parseInt(arr[arr.length - 2]);
+                            total = parseInt(total + data);
+                            if ($('.ac').is(':checked')) {
+                                if ($('.ac:checked').val() == '1') {
+                                    total = parseInt(total + 1500);
                                 }
-                            }
-                            else
-                            {
+                                if ($('.mess_food').is(':checked')) {
+                                    if ($('.mess_food:checked').val() == '1') {
+                                        total = parseInt(total + 2500);
+                                    }
+                                    $('#sub_total').val(total);
+                                } else {
+                                    swal({
+                                        title: "Error!",
+                                        text: "Please Select Food or Without Food",
+                                        icon: "warning",
+                                        button: "Aww yiss!",
+                                    });
+                                }
+
+                            } else {
                                 swal({
                                     title: "Error!",
                                     text: "Please Select AC Or Non AC",
-                                    icon: "error",
+                                    icon: "warning",
                                     button: "Aww yiss!",
                                 });
                             }
 
-                        }
-                        else
-                        {
+                        } else {
                             swal({
                                 title: "Error!",
                                 text: "Please Select Room Type",
-                                icon: "error",
+                                icon: "warning",
                                 button: "Aww yiss!",
                             });
                         }
-                    })
+                        sub_total = parseInt($('#sub_total').val());
+                        if (sub_total > 0) {
+                            month = parseInt($(this).val());
+                            total = parseInt(sub_total * month);
+                            $('#total').val(total);
+                        }
+                    });
                 }
             </script>
         </div>
