@@ -92,4 +92,9 @@ class AdminController extends Controller
         ));
         return redirect('/admin/add-room');
     }
+
+    public function seatMatrix()
+    {
+        return view('Profile.Admin.seatMatrix');
+    }
 }
