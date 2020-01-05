@@ -1,6 +1,5 @@
 <link href="{{ asset('css/Student.index.css') }}" rel="stylesheet">
 <script src="{{ asset('js/Student.index.js') }}"></script>
-<script src="{{ asset('js/app.js') }}"></script>
 @extends('layouts.app')
 
 @section('content')

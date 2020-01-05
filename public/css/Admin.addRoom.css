@@ -1,3 +1,7 @@
+.ferin_sidebar
+{
+    display: none !important;
+}
 #addRoom__form
 {
     display: flex;

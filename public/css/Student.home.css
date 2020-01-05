@@ -1,3 +1,7 @@
+.ferin_sidebar
+{
+    display: none; !important;
+}
 .card-wrapper
 {
     width: 30%;
@@ -38,6 +42,10 @@
 .card-7
 {
     background-color: #fab1a0;
+}
+.card-8
+{
+    background-color: #fd79a8;
 }
 .card-wrapper:hover
 {

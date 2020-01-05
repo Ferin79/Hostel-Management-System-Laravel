@@ -13,5 +13,8 @@ window.onload = function () {
     });
     document.querySelector('#showRoom').addEventListener('click',function () {
         window.location.href = '/showRooms';
-    })
+    });
+    document.querySelector('#edit_dept').addEventListener('click',function () {
+            window.location.href = '/admin/edit-dept';
+    });
 };

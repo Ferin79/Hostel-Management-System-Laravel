@@ -78,7 +78,14 @@
                 <i class="fa fa-building fa-4x"></i>
             </div>
         </div>
-
+        <div id="edit_dept" class="card-wrapper card-8">
+            <div class="text-wrapper">
+                <h3>Edit & Manage Department</h3>
+            </div>
+            <div class="icon-wrapper">
+                <i class="fa fa-institution fa-4x"></i>
+            </div>
+        </div>
         <div class="card-wrapper card-3">
             <div class="text-wrapper">
                 <h3>Edit Seats Matrix</h3>

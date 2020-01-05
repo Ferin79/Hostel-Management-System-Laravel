@@ -97,4 +97,9 @@ class AdminController extends Controller
     {
         return view('Profile.Admin.seatMatrix');
     }
+
+    public function editDept()
+    {
+        return view('Profile.Admin.editDept');
+    }
 }

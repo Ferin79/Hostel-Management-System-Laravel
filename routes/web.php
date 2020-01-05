@@ -32,6 +32,7 @@ Route::get('/admin/pending','AdminController@pending');
 Route::get('/admin/manage-admin','AdminController@manageAdmin');
 Route::get('/admin/manage-student','AdminController@manageStudent');
 Route::get('/admin/add-room','AdminController@showAddRoom');
+Route::get('/admin/edit-dept','AdminController@editDept');
 Route::get('/admin/seatMatrix','AdminController@seatMatrix');
 Route::post('/admin/add-room','AdminController@addRoom');
 Route::post('/admin/accept/{userId}','AdminController@accept');
