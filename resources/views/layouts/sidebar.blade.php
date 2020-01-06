@@ -3,7 +3,7 @@
 
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
-        <div class="sidebar-heading">Hey, {{ Auth::user()->first_name }}</div>
+        <div class="sidebar-heading">Hey, {{ Auth::user() ? Auth::user()->first_name : " " }}</div>
         <div class="list-group list-group-flush">
             <a href="/home" class="list-group-item list-group-item-action bg-light">Home</a>
             <a href="/admin/pending" class="list-group-item list-group-item-action bg-light">Register

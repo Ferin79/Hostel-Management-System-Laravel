@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Institution;
 use App\RoomDetails;
 use App\User;
 use Illuminate\Http\Request;
@@ -100,6 +101,30 @@ class AdminController extends Controller
 
     public function editDept()
     {
-        return view('Profile.Admin.editDept');
+        $institute = Institution::all();
+        return view('Profile.Admin.editDept',compact('institute'));
+    }
+
+    public function addInstitute()
+    {
+        $data = request()->validate([
+           'institute' => 'required',
+        ]);
+        $new = new Institution();
+        $new->create($data);
+        return redirect('/admin/edit-dept');
+    }
+
+    public function getInstitution()
+    {
+        $institute = Institution::all();
+        return $institute;
+    }
+
+    public function deleteInstitution()
+    {
+        $data = request('id');
+        Institution::where('id',$data)->delete();
+        return redirect('/admin/edit-dept');
     }
 }
