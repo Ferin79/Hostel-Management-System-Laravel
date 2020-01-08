@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Departments;
 use App\Institution;
 use App\RoomDetails;
 use App\User;
@@ -126,5 +127,25 @@ class AdminController extends Controller
         $data = request('id');
         Institution::where('id',$data)->delete();
         return redirect('/admin/edit-dept');
+    }
+
+    public function addDepartment()
+    {
+        $data = request()->validate([
+            "institute_id" => 'required',
+            "department_name" => 'required'
+        ]);
+
+        $new = new Departments();
+        $new->create($data);
+        return redirect('/admin/edit-dept');
+    }
+
+    public function getDepartment()
+    {
+        $val = request('institute_id');
+        $data = Departments::all();
+        $data = $data->where('institute_id',$val);
+        return $data;
     }
 }

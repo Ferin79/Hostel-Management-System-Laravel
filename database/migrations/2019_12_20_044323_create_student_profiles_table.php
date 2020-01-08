@@ -24,10 +24,6 @@ class CreateStudentProfilesTable extends Migration
             $table->text('state')->nullable();
             $table->text('pincode')->nullable();
             $table->text('cast')->nullable();
-            $table->text('degree')->nullable();
-            $table->integer('marks')->nullable();
-            $table->string('department')->nullable();
-            $table->integer('sem')->nullable();
             $table->text('image')->nullable();
             $table->timestamps();
 

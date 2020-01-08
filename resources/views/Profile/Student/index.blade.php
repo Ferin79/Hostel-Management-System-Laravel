@@ -369,35 +369,14 @@
 
                         <div class="form-group row">
                             <label for="degree" class="col-md-4 col-form-label text-md-right">Pass Out
-                                Degree</label>
+                                Education or Currently Pursuing</label>
 
                             <div class="col-md-6">
                                 <select class="form-control" name="degree" id="degree" required>
-                                    <option value="0" disabled selected>Select Your Highest Education</option>
-                                    <option
-                                        value="12" {{ $user->StudentProfile->degree == '12'? 'selected' : null }}>
-                                        12th
-                                    </option>
-                                    <option
-                                        value="diploma" {{ $user->StudentProfile->degree == 'diploma'? 'selected' : null }}>
-                                        Diploma
-                                    </option>
-                                    <option value="1" {{ $user->StudentProfile->degree == '1'? 'selected' : null }}>
-                                        1st
-                                        Year
-                                    </option>
-                                    <option value="2" {{ $user->StudentProfile->degree == '2'? 'selected' : null }}>
-                                        2nd
-                                        Year
-                                    </option>
-                                    <option value="3" {{ $user->StudentProfile->degree == '3'? 'selected' : null }}>
-                                        3rd
-                                        Year
-                                    </option>
-                                    <option value="4" {{ $user->StudentProfile->degree == '4'? 'selected' : null }}>
-                                        4th
-                                        Year
-                                    </option>
+                                    <option value="-1" disabled selected>Select Your Passout Education</option>
+                                    <option value="1">10th or S.S.C</option>
+                                    <option value="1">12th or H.S.C</option>
+                                    <option value="0">Diploma / Regular</option>
                                 </select>
 
                                 @error('degree')
@@ -408,14 +387,14 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="marks"
-                                   class="col-md-4 col-form-label text-md-right">Marks/Percentage</label>
+                        <div class="form-group row marks_wrapper" style="display: none">
+                            <label for="marks" id="label_marks"
+                                   class="col-md-4 col-form-label text-md-right"></label>
                             <div class="col-md-6">
                                 <input id="marks" type="number" min="1" max="100"
                                        class="form-control @error('marks') is-invalid @enderror" name="marks"
-                                       value="{{ $user->StudentProfile->marks }}" required autocomplete="marks"
-                                       placeholder="Enter Marks" autofocus>
+                                       value="" required autocomplete="marks"
+                                       placeholder="" autofocus>
 
                                 @error('marks')
                                 <span class="invalid-feedback" role="alert">
@@ -425,34 +404,23 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label for="department" class="col-md-4 col-form-label text-md-right">Department</label>
+                        <div class="form-group row sem_wrapper" style="display: none">
+                            <label for="current_sem" class="col-md-4 col-form-label text-md-right">Select Current
+                                Semester</label>
                             <div class="col-md-6">
-                                <select class="form-control" name="department" id="department">
-                                    <option value="0" selected disabled>Select Department</option>
-                                    <option
-                                        value="computer" {{ $user->StudentProfile->department == 'computer' ? 'selected' : null }}>
-                                        Computer
-                                    </option>
-                                    <option
-                                        value="electrical" {{ $user->StudentProfile->department == 'electrical' ? 'selected' : null }}>
-                                        Electrical
-                                    </option>
-                                    <option
-                                        value="civil" {{ $user->StudentProfile->department == 'civil' ? 'selected' : null }}>
-                                        Civil
-                                    </option>
-                                    <option
-                                        value="mech" {{ $user->StudentProfile->department == 'mech' ? 'selected' : null }}>
-                                        Mechanical
-                                    </option>
-                                    <option
-                                        value="ec" {{ $user->StudentProfile->department == 'ec' ? 'selected' : null }}>
-                                        E.C
-                                    </option>
+                                <select class="form-control" name="current_sem">
+                                    <option value="-1" selected disabled>Select Current Semester</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
                                 </select>
 
-                                @error('department')
+                                @error('current_sem')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -460,30 +428,29 @@
                             </div>
                         </div>
 
+
                         <div class="form-group row">
-                            <label for="sem" class="col-md-4 col-form-label text-md-right">Semester</label>
+                            <label for="institution" class="col-md-4 col-form-label text-md-right">Select
+                                Institution</label>
                             <div class="col-md-6">
-                                <select class="form-control" name="sem" id="sem">
-                                    <option value="0" selected disabled>Select Semester</option>
-                                    <option value="1" {{ $user->StudentProfile->sem == '1' ? 'selected' : null }}>1
-                                    </option>
-                                    <option value="2" {{ $user->StudentProfile->sem == '2' ? 'selected' : null }}>2
-                                    </option>
-                                    <option value="3" {{ $user->StudentProfile->sem == '3' ? 'selected' : null }}>3
-                                    </option>
-                                    <option value="4" {{ $user->StudentProfile->sem == '4' ? 'selected' : null }}>4
-                                    </option>
-                                    <option value="5" {{ $user->StudentProfile->sem == '5' ? 'selected' : null }}>5
-                                    </option>
-                                    <option value="6" {{ $user->StudentProfile->sem == '6' ? 'selected' : null }}>6
-                                    </option>
-                                    <option value="7" {{ $user->StudentProfile->sem == '7' ? 'selected' : null }}>7
-                                    </option>
-                                    <option value="8" {{ $user->StudentProfile->sem == '8' ? 'selected' : null }}>8
-                                    </option>
+                                <select class="form-control add_institute" name="institution" id="institution">
                                 </select>
 
-                                @error('sem')
+                                @error('institution')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="department" class="col-md-4 col-form-label text-md-right">Department</label>
+                            <div class="col-md-6">
+                                <select class="form-control add_department" name="department" id="department">
+
+                                </select>
+
+                                @error('department')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

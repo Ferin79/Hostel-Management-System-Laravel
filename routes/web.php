@@ -27,6 +27,8 @@ Route::get('/student/profile','ProfileController@show');
 Route::PATCH('/student/profile','ProfileController@update');
 Route::get('/student/apply','ProfileController@apply');
 Route::post('/student/apply','ProfileController@addApply');
+Route::get('/student/get_institution','ProfileController@getInstitution');
+Route::get('/student/get_department','ProfileController@getDepartment');
 
 Route::get('/admin/pending','AdminController@pending');
 Route::get('/admin/manage-admin','AdminController@manageAdmin');
@@ -38,6 +40,8 @@ Route::post('/admin/add-room','AdminController@addRoom');
 Route::post('/admin/add_institute','AdminController@addInstitute');
 Route::get('/admin/get_institute','AdminController@getInstitution');
 Route::post('/admin/delete_institute','AdminController@deleteInstitution');
+Route::post('/admin/add-department','AdminController@addDepartment');
+Route::get('/admin/get_department','AdminController@getDepartment');
 Route::post('/admin/accept/{userId}','AdminController@accept');
 Route::post('/admin/reject/{userId}','AdminController@reject');
 Route::post('/admin/block/{userId}','AdminController@block');

@@ -11,4 +11,8 @@ class StudentProfile extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function StudentEducation()
+    {
+        return $this->hasOne(StudentEducation::class);
+    }
 }

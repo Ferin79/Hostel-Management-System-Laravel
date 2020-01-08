@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Departments;
+use App\Institution;
 use App\RoomDetails;
 use App\StudentApply;
 use App\StudentProfile;
@@ -88,5 +90,17 @@ class ProfileController extends Controller
         ));
 
         return redirect('/home');
+    }
+    public function getInstitution() {
+        $data = Institution::all();
+        return $data;
+    }
+
+    public function getDepartment()
+    {
+        $institute_id = request('institute_id');
+        $data = Departments::all();
+        $data = $data->where('institute_id',$institute_id);
+        return $data;
     }
 }
