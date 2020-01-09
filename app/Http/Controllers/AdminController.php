@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Departments;
 use App\Institution;
 use App\RoomDetails;
+use App\SeatMatrix;
 use App\User;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -146,6 +147,31 @@ class AdminController extends Controller
         $val = request('institute_id');
         $data = Departments::all();
         $data = $data->where('institute_id',$val);
+        return $data;
+    }
+    public function showSeatMatrix()
+    {
+        return view('Profile.Admin.EditSeatMatrix');
+    }
+
+    public function addSeatMatrix()
+    {
+        $data = request()->validate([
+           "institute_id" => 'required',
+           "department_id" => 'required',
+           "year" => 'required',
+            "cast" => 'required',
+            "boys_seat" => 'required',
+            "girls_seat" => 'required',
+        ]);
+        $new = new SeatMatrix();
+        $new->create($data);
+        return redirect('/');
+    }
+
+    public function getSeatMatrix()
+    {
+        $data = SeatMatrix::all();
         return $data;
     }
 }

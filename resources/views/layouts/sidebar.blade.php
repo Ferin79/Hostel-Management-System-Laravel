@@ -1,4 +1,5 @@
 <link href="{{ asset('css/simple-sidebar.css') }}" rel="stylesheet">
+{{--<script src="{{ asset('js/sidebar.js') }}" defer></script>--}}
 <div class="d-flex" id="wrapper">
 
     <!-- Sidebar -->
@@ -14,7 +15,7 @@
                 Student</a>
             <a href="/admin/add-room" class="list-group-item list-group-item-action bg-light">Rooms</a>
             <a href="/admin/edit-dept" class="list-group-item list-group-item-action bg-light">Edit Department</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">Edit Seats Matrix</a>
+            <a href="/admin/edit-seat-matrix" class="list-group-item list-group-item-action bg-light">Edit Seats Matrix</a>
             <a href="#" class="list-group-item list-group-item-action bg-light">Edit Profile</a>
         </div>
     </div>

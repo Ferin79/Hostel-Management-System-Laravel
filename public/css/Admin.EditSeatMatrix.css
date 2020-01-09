@@ -1,0 +1,18 @@
+.ferin_navbar
+{
+    display: none !important;
+}
+.seat_wrapper
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+@media(max-width: 500px){
+    .seat_wrapper
+    {
+        flex-direction: column;
+        align-items: normal;
+    }
+}
