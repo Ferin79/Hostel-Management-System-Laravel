@@ -6,6 +6,7 @@ use App\Departments;
 use App\Institution;
 use App\RoomDetails;
 use App\StudentApply;
+use App\StudentEducation;
 use App\StudentProfile;
 use App\User;
 use Illuminate\Http\Request;
@@ -34,10 +35,6 @@ class ProfileController extends Controller
             'city' => 'required',
             'state' => 'required',
             'pincode' => 'required',
-            'degree' => 'required',
-            'marks' => 'required',
-            'department' => 'required',
-            'sem' => 'required',
             'image' => 'image',
         ]);
         if(request('image'))
@@ -52,6 +49,38 @@ class ProfileController extends Controller
             $data,
             $imageArray ?? [],
         ));
+
+        if(request('degree') == "1")
+        {
+            $new  = new StudentEducation();
+            $new_data = [
+                "in_ssc_hsc" => "1",
+                "in_college" => "0",
+                "percentage" => request('marks'),
+                "cgpa" => "-1",
+                "current_sem" => "-1",
+            ];
+            $new->create(array_merge(
+                $new_data,
+                ["student_id" => Auth()->user()->id],
+                ["department_id" => request('department')],
+            ));
+        }
+        else
+        {
+            $new  = new StudentEducation();
+            $new_data = [
+                "in_ssc_hsc" => "0",
+                "in_college" => "1",
+                "cgpa" => request('marks'),
+                "percentage" => "-1",
+                "current_sem" => request('sem')
+            ];
+            $new->create(array_merge(
+                $new_data,
+                ["student_id" => Auth()->user()->id]
+            ));
+        }
 
         return redirect('/student/profile');
     }

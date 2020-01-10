@@ -8,6 +8,7 @@ use App\RoomDetails;
 use App\SeatMatrix;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Intervention\Image\Facades\Image;
 
 class AdminController extends Controller
@@ -16,15 +17,18 @@ class AdminController extends Controller
     {
         $this->middleware('auth');
     }
+
     public function adminHome()
     {
         return view('Profile.Admin.home');
     }
+
     public function pending(User $user)
     {
-        $data = $user->all()->where('pending','1');
-        return view('Profile.Admin.pending',compact('data'));
+        $data = $user->all()->where('pending', '1');
+        return view('Profile.Admin.pending', compact('data'));
     }
+
     public function accept($user)
     {
         $data = User::find($user);
@@ -32,6 +36,7 @@ class AdminController extends Controller
         $data->save();
         return redirect('/admin/pending');
     }
+
     public function reject($user)
     {
         User::find($user)->delete();
@@ -49,15 +54,15 @@ class AdminController extends Controller
     public function manageAdmin()
     {
         $data = User::all();
-        $data = $data->where('user_type','admin');
-        $data = $data->where('pending','0');
-        return view('Profile.Admin.manageAdmin',compact('data'));
+        $data = $data->where('user_type', 'admin');
+        $data = $data->where('pending', '0');
+        return view('Profile.Admin.manageAdmin', compact('data'));
     }
 
     public function manageStudent()
     {
-        $data = User::all()->where('user_type','user');
-        return view('Profile.Admin.manageStudent',compact('data'));
+        $data = User::all()->where('user_type', 'user');
+        return view('Profile.Admin.manageStudent', compact('data'));
     }
 
     public function showAddRoom()
@@ -71,16 +76,15 @@ class AdminController extends Controller
             'room_type' => 'required',
             'room_select' => 'required',
             'price' => 'required',
-            'image1' => ['required','image'],
-            'image2' => ['required','image'],
+            'image1' => ['required', 'image'],
+            'image2' => ['required', 'image'],
         ]);
-        if(request('image1') && request('image2'))
-        {
-            $imagePath1 = request('image1')->store('uploads/Rooms','public');
-            $image1 = Image::make(public_path("storage/{$imagePath1}"))->fit(1280,720);
+        if (request('image1') && request('image2')) {
+            $imagePath1 = request('image1')->store('uploads/Rooms', 'public');
+            $image1 = Image::make(public_path("storage/{$imagePath1}"))->fit(1280, 720);
             $image1->save();
-            $imagePath2 = request('image2')->store('uploads/Rooms','public');
-            $image2 = Image::make(public_path("storage/{$imagePath2}"))->fit(1280,720);
+            $imagePath2 = request('image2')->store('uploads/Rooms', 'public');
+            $image2 = Image::make(public_path("storage/{$imagePath2}"))->fit(1280, 720);
             $image2->save();
             $imageArray = [
                 'image1' => $imagePath1,
@@ -104,13 +108,13 @@ class AdminController extends Controller
     public function editDept()
     {
         $institute = Institution::all();
-        return view('Profile.Admin.editDept',compact('institute'));
+        return view('Profile.Admin.editDept', compact('institute'));
     }
 
     public function addInstitute()
     {
         $data = request()->validate([
-           'institute' => 'required',
+            'institute' => 'required',
         ]);
         $new = new Institution();
         $new->create($data);
@@ -126,7 +130,7 @@ class AdminController extends Controller
     public function deleteInstitution()
     {
         $data = request('id');
-        Institution::where('id',$data)->delete();
+        Institution::where('id', $data)->delete();
         return redirect('/admin/edit-dept');
     }
 
@@ -146,9 +150,10 @@ class AdminController extends Controller
     {
         $val = request('institute_id');
         $data = Departments::all();
-        $data = $data->where('institute_id',$val);
+        $data = $data->where('institute_id', $val);
         return $data;
     }
+
     public function showSeatMatrix()
     {
         return view('Profile.Admin.EditSeatMatrix');
@@ -157,9 +162,9 @@ class AdminController extends Controller
     public function addSeatMatrix()
     {
         $data = request()->validate([
-           "institute_id" => 'required',
-           "department_id" => 'required',
-           "year" => 'required',
+            "institute_id" => 'required',
+            "department_id" => 'required',
+            "year" => 'required',
             "cast" => 'required',
             "boys_seat" => 'required',
             "girls_seat" => 'required',
@@ -172,6 +177,19 @@ class AdminController extends Controller
     public function getSeatMatrix()
     {
         $data = SeatMatrix::all();
+        $institute = Institution::all();
+        $department = Departments::all();
+        for ($i = 0; $i < $data->count(); $i++) {
+            $in = $institute->where("id", $data[$i]["institute_id"])->toArray();
+            foreach ($in as $value) {
+                $data[$i]["institute_id"] = $value["institute"];
+            }
+
+            $in = $department->where('id', $data[$i]['department_id'])->toArray();
+            foreach ($in as $value) {
+                $data[$i]["department_id"] = $value["department_name"];
+            }
+        }
         return $data;
     }
 }

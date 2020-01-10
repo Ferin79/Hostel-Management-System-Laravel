@@ -148,6 +148,7 @@ function refresh_table() {
         url:"/admin/getSeatMatrix",
         success:function (result) {
             data = Object.entries(result);
+            console.log(data);
             for(var i =0;i<data.length;i++)
             {
                 if(data[i][1].cast === 'gen')

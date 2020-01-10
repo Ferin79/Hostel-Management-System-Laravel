@@ -3,11 +3,17 @@
 @extends('layouts.app')
 
 @section('content')
+
+    @if(!empty($errors))
+        @foreach($errors->all() as $error)
+            <div>{{ $error }}</div>
+        @endforeach
+    @endif
     <div class="container-fluid">
         <div class="row">
             <div class="userInfo">
                 <img
-                    src="/storage/{{ $user->StudentProfile->image }}"
+                    src="/storage/{{ $user->StudentProfile->image ?? "" }}"
                     class="rounded-circle" alt="img">
                 <h1>{{ $user->first_name }} {{ $user->last_name }}</h1>
             </div>
@@ -405,10 +411,10 @@
                         </div>
 
                         <div class="form-group row sem_wrapper" style="display: none">
-                            <label for="current_sem" class="col-md-4 col-form-label text-md-right">Select Current
+                            <label for="sem" class="col-md-4 col-form-label text-md-right">Select Current
                                 Semester</label>
                             <div class="col-md-6">
-                                <select class="form-control" name="current_sem">
+                                <select class="form-control" name="sem">
                                     <option value="-1" selected disabled>Select Current Semester</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -420,7 +426,7 @@
                                     <option value="8">8</option>
                                 </select>
 
-                                @error('current_sem')
+                                @error('sem')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
