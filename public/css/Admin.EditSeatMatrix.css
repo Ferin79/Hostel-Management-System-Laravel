@@ -9,6 +9,12 @@
     justify-content: space-evenly;
     align-items: center;
 }
+.option_wrapper
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 @media(max-width: 500px){
     .seat_wrapper
     {

@@ -48,11 +48,13 @@
                         </div>
                         <div class="form-group">
                             <label class="col-form-label">Enter Boys Seats</label>
-                            <input type="number" placeholder="Boys Seats" class="form-control" id="boys_seats" name="boys_seats"/>
+                            <input type="number" placeholder="Boys Seats" class="form-control" id="boys_seats"
+                                   name="boys_seats"/>
                         </div>
                         <div class="form-group">
                             <label class="col-form-label">Enter Girls Seats</label>
-                            <input type="number" placeholder="Girls Seats" class="form-control" id="girls_seats" name="girls_seats"/>
+                            <input type="number" placeholder="Girls Seats" class="form-control" id="girls_seats"
+                                   name="girls_seats"/>
                         </div>
                         <div class="form-group pt-4">
                             <button type="submit" class="btn btn-outline-primary">Add</button>
@@ -60,7 +62,18 @@
                     </form>
                 </div>
                 <div class="col-12 col-md-12 pt-5 show_matrix_wrapper">
-                    <input type="search" class="form-control col-md-3 col-sm-12 m-3" style="padding-left: 20px;" placeholder="Search Seat Matrix ........." name="search_table" id="search_table" />
+                    <div class="option_wrapper">
+                        <input type="search" class="form-control col-md-3 col-sm-12 m-3" style="padding-left: 20px;"
+                               placeholder="Search Seat Matrix ........." name="search_table" id="search_table"/>
+                        <div class="col-3 col-md-3 col-sm-12 form-group">
+                            <label class="col-form-label">Sort By:</label>
+                            <select class="form-control">
+                                <option value="-1" selected>Default</option>
+                                <option value="1">Department-wise</option>
+                                <option value="2">Institution-wise</option>
+                            </select>
+                        </div>
+                    </div>
                     <table class="table">
                         <thead class="thead-dark">
                         <tr>

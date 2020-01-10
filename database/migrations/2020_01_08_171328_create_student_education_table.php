@@ -15,13 +15,13 @@ class CreateStudentEducationTable extends Migration
     {
         Schema::create('student_education', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('student_id');
-            $table->unsignedBigInteger('department_id');
-            $table->boolean('in_ssc_hsc');
-            $table->double('percentage');
-            $table->boolean('in_college');
-            $table->double('cgpa');
-            $table->double('current_sem');
+            $table->unsignedBigInteger('student_id')->nullable();
+            $table->unsignedBigInteger('department_id')->nullable();
+            $table->boolean('in_ssc_hsc')->nullable();
+            $table->double('percentage')->nullable();
+            $table->boolean('in_college')->nullable();
+            $table->double('cgpa')->nullable();
+            $table->double('current_sem')->nullable();
             $table->timestamps();
 
             $table->index('student_id');
