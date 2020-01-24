@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Departments;
 use App\Institution;
+use App\ParentDetail;
 use App\RoomDetails;
 use App\StudentApply;
 use App\StudentEducation;
@@ -22,7 +23,8 @@ class ProfileController extends Controller
     public function show()
     {
             $user = User::findOrFail(auth()->user()->id);
-            return view('Profile.Student.index',compact('user'));
+            $user_edu = StudentEducation::where('user_id',$user->id)->get();;
+            return view('Profile.Student.index',compact('user','user_edu'));
     }
     public function update(User $user)
     {
@@ -52,34 +54,30 @@ class ProfileController extends Controller
 
         if(request('degree') == "1")
         {
-            $new  = new StudentEducation();
-            $new_data = [
-                "in_ssc_hsc" => "1",
-                "in_college" => "0",
-                "percentage" => request('marks'),
-                "cgpa" => "-1",
-                "current_sem" => "-1",
-            ];
-            $new->create(array_merge(
-                $new_data,
-                ["student_id" => Auth()->user()->id],
-                ["department_id" => request('department')],
-            ));
+            StudentEducation::where("user_id" ,Auth()->user()->id)->update(
+                [
+                    "in_ssc_hsc" => "1",
+                    "in_college" => "0",
+                    "percentage" => request('marks'),
+                    "cgpa" => "-1",
+                    "current_sem" => "-1",
+                    "department_id" => request('department'),
+                    "user_id" => Auth()->user()->id
+            ]);
         }
         else
         {
-            $new  = new StudentEducation();
-            $new_data = [
-                "in_ssc_hsc" => "0",
-                "in_college" => "1",
-                "cgpa" => request('marks'),
-                "percentage" => "-1",
-                "current_sem" => request('sem')
-            ];
-            $new->create(array_merge(
-                $new_data,
-                ["student_id" => Auth()->user()->id]
-            ));
+            StudentEducation::where("user_id" , Auth()->user()->id)->update(
+                [
+                    "in_ssc_hsc" => "0",
+                    "in_college" => "1",
+                    "cgpa" => request('marks'),
+                    "percentage" => "-1",
+                    "current_sem" => request('sem'),
+                    "department_id" => request('department'),
+                    "user_id" => Auth()->user()->id
+                ]
+            );
         }
 
         return redirect('/student/profile');
@@ -97,15 +95,18 @@ class ProfileController extends Controller
         }
         else
         {
-            return view('Profile.Student.applyRoom',compact('user','roomDetails'));
+            $user_edu = StudentEducation::where('user_id', auth()->user()->id)->get();
+            $user_edu = $user_edu[0];
+            $dept_name = Departments::where('id',$user_edu->department_id)->get();
+            $dept_name = $dept_name[0];
+            $dept_name = $dept_name->department_name;
+            return view('Profile.Student.applyRoom',compact('user','roomDetails','user_edu','dept_name'));
         }
     }
     public function addApply()
     {
         $data = request()->validate([
-            "guard_name" => 'required',
-            "guard_email" => 'required',
-            "guard_number" => 'required',
+            "term" => "required",
             "room_type" => 'required',
             "ac" => "required",
             "food" => "required",
@@ -113,6 +114,16 @@ class ProfileController extends Controller
             "total" => "required",
         ]);
         $new = new StudentApply();
+        $new->create(array_merge(
+            $data,
+            ['user_id' => auth()->user()->id]
+        ));
+        $data = request()->validate([
+            "guard_name" => 'required',
+            "guard_email" => 'required',
+            "guard_number" => 'required',
+        ]);
+        $new = new ParentDetail();
         $new->create(array_merge(
             $data,
             ['user_id' => auth()->user()->id]

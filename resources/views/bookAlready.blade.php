@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+<link rel="stylesheet" href="{{ asset("css/removeSidebar.css") }}">
 @section('content')
     <div class="d-flex flex-column align-items-center justify-content-center">
         <h2>You Have Already Applied for Hostel Room</h2>

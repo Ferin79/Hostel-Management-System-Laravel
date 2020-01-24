@@ -6,6 +6,8 @@ use App\Departments;
 use App\Institution;
 use App\RoomDetails;
 use App\SeatMatrix;
+use App\StudentApply;
+use App\StudentEducation;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -191,5 +193,28 @@ class AdminController extends Controller
             }
         }
         return $data;
+    }
+    public function showStudentApply()
+    {
+        $data = StudentApply::all();
+        return view('Profile.Admin.studentApply',compact('data'));
+    }
+
+    public function generate_seat_matrix()
+    {
+        $institution = Institution::all();
+        $name = "";
+        foreach ($institution as $institute)
+        {
+             $departments = Departments::where('institute_id',$institute->id)->get();
+             foreach ($departments as $department)
+             {
+                 $stu_dept = StudentEducation::where('department_id',$department->id)->where('in_ssc_hsc',1)->get();
+                 foreach ($stu_dept as $term)
+                 {
+                    echo $term->user_id." ";
+                 }
+             }
+        }
     }
 }

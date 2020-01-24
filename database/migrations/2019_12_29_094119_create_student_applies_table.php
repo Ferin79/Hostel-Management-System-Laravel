@@ -16,9 +16,10 @@ class CreateStudentAppliesTable extends Migration
         Schema::create('student_applies', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id')->unique();
-            $table->string('guard_name')->nullable();
-            $table->string('guard_email')->nullable();
-            $table->string('guard_number')->nullable();
+//            $table->string('guard_name')->nullable();
+//            $table->string('guard_email')->nullable();
+//            $table->string('guard_number')->nullable();
+            $table->integer('term')->nullable();
             $table->string('room_type')->nullable();
             $table->boolean('ac')->default('0');
             $table->boolean('food')->default('1');

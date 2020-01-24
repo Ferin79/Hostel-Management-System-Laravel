@@ -380,9 +380,9 @@
                             <div class="col-md-6">
                                 <select class="form-control" name="degree" id="degree" required>
                                     <option value="-1" disabled selected>Select Your Passout Education</option>
-                                    <option value="1">10th or S.S.C</option>
-                                    <option value="1">12th or H.S.C</option>
-                                    <option value="0">Diploma / Regular</option>
+                                    <option value="1" {{ $user_edu[0]->in_ssc_hsc == '1' ? 'selected' : null }}>10th or S.S.C</option>
+                                    <option value="1" {{ $user_edu[0]->in_ssc_hsc == '1' ? 'selected' : null }}>12th or H.S.C</option>
+                                    <option value="0" {{ $user_edu[0]->in_college == '1' ? 'selected' : null }}>Diploma / Regular</option>
                                 </select>
 
                                 @error('degree')
@@ -393,14 +393,14 @@
                             </div>
                         </div>
 
-                        <div class="form-group row marks_wrapper" style="display: none">
+                        <div class="form-group row marks_wrapper" style=St{{ $user_edu[0]->in_college ? "" : "display: none"}}>
                             <label for="marks" id="label_marks"
-                                   class="col-md-4 col-form-label text-md-right"></label>
+                                   class="col-md-4 col-form-label text-md-right">{{ $user_edu[0]->in_college ? 'Enter CGPA' : 'Enter Percentage' }}</label>
                             <div class="col-md-6">
                                 <input id="marks" type="number" min="1" max="100"
                                        class="form-control @error('marks') is-invalid @enderror" name="marks"
-                                       value="" required autocomplete="marks"
-                                       placeholder="" autofocus>
+                                       value="{{ $user_edu[0]->in_college ? $user_edu[0]->cgpa : $user_edu[0]->percentage }}" required autocomplete="marks"
+                                       placeholder="{{ $user_edu[0]->in_college ? 'Enter CGPA' : 'Enter Percentage' }}" autofocus>
 
                                 @error('marks')
                                 <span class="invalid-feedback" role="alert">
@@ -410,20 +410,20 @@
                             </div>
                         </div>
 
-                        <div class="form-group row sem_wrapper" style="display: none">
+                        <div class="form-group row sem_wrapper" style="{{ $user_edu[0]->in_college ? '': 'display: none'}}">
                             <label for="sem" class="col-md-4 col-form-label text-md-right">Select Current
                                 Semester</label>
                             <div class="col-md-6">
                                 <select class="form-control" name="sem">
                                     <option value="-1" selected disabled>Select Current Semester</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
+                                    <option value="1" {{ $user_edu[0]->current_sem == '1' ? 'selected' : null }}>1</option>
+                                    <option value="2" {{ $user_edu[0]->current_sem == '2' ? 'selected' : null }}>2</option>
+                                    <option value="3" {{ $user_edu[0]->current_sem == '3' ? 'selected' : null }}>3</option>
+                                    <option value="4" {{ $user_edu[0]->current_sem == '4' ? 'selected' : null }}>4</option>
+                                    <option value="5" {{ $user_edu[0]->current_sem == '5' ? 'selected' : null }}>5</option>
+                                    <option value="6" {{ $user_edu[0]->current_sem == '6' ? 'selected' : null }}>6</option>
+                                    <option value="7" {{ $user_edu[0]->current_sem == '7' ? 'selected' : null }}>7</option>
+                                    <option value="8" {{ $user_edu[0]->current_sem == '8' ? 'selected' : null }}>8</option>
                                 </select>
 
                                 @error('sem')
@@ -435,7 +435,7 @@
                         </div>
 
 
-                        <div class="form-group row">
+                        <div class="form-group row institution_wrapper">
                             <label for="institution" class="col-md-4 col-form-label text-md-right">Select
                                 Institution</label>
                             <div class="col-md-6">
@@ -449,7 +449,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row department_wrapper">
                             <label for="department" class="col-md-4 col-form-label text-md-right">Department</label>
                             <div class="col-md-6">
                                 <select class="form-control add_department" name="department" id="department">

@@ -17,4 +17,10 @@ window.onload = function () {
     document.querySelector('#edit_dept').addEventListener('click',function () {
             window.location.href = '/admin/edit-dept';
     });
+    document.querySelector('#apply_stu').addEventListener('click',function () {
+            window.location.href = '/admin/studentApply';
+    });
+    document.querySelector('#edit_seat').addEventListener('click',function () {
+        window.location.href = "/admin/edit-seat-matrix";
+    })
 };

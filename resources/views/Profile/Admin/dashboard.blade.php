@@ -86,7 +86,7 @@
                 <i class="fa fa-institution fa-4x"></i>
             </div>
         </div>
-        <div class="card-wrapper card-3">
+        <div id="edit_seat" class="card-wrapper card-3">
             <div class="text-wrapper">
                 <h3>Edit Seats Matrix</h3>
             </div>
@@ -94,7 +94,14 @@
                 <i class="fa fa-list-alt fa-4x"></i>
             </div>
         </div>
-
+        <div id="apply_stu" class="card-wrapper card-7">
+            <div class="text-wrapper">
+                <h3>View Student Applied</h3>
+            </div>
+            <div class="icon-wrapper">
+                <i class="fa fa-table fa-4x"></i>
+            </div>
+        </div>
         <div id="myBtn" class="card-wrapper card-6">
             <div class="text-wrapper">
                 <h3>Edit Profile</h3>

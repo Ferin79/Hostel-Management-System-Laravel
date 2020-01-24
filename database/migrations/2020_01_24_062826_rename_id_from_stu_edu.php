@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropColumnFromStudentProfiles extends Migration
+class RenameIdFromStuEdu extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class DropColumnFromStudentProfiles extends Migration
      */
     public function up()
     {
-        Schema::table('student_profiles', function (Blueprint $table) {
-            $table->dropColumn(['degree','marks','department','sem']);
+        Schema::table('student_education', function (Blueprint $table) {
+            $table->renameColumn('student_id', 'user_id');
+
         });
     }
 
@@ -25,7 +26,7 @@ class DropColumnFromStudentProfiles extends Migration
      */
     public function down()
     {
-        Schema::table('student_profiles', function (Blueprint $table) {
+        Schema::table('student_education', function (Blueprint $table) {
             //
         });
     }

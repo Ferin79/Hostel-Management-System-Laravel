@@ -43,8 +43,24 @@ class User extends Authenticatable
         static::created(function ($user){
             $user->StudentProfile()->create();
         });
+        static::created(function($user){
+            $new = new StudentEducation();
+            $new->create([
+                "user_id" => $user->id,
+                "department_id" => '',
+                "in_ssc_hsc" => "",
+                "percentage" =>"",
+                "in_college" => "",
+                "cgpa" => "",
+                "current_sem" => ""
+            ]);
+        });
     }
 
+    public function StudentEducation()
+    {
+        return $this->hasOne(StudentEducation::class);
+    }
     public function studentprofile()
     {
         return $this->hasOne(StudentProfile::class);
@@ -56,5 +72,9 @@ class User extends Authenticatable
     public  function StudentApply()
     {
         return $this->hasOne(StudentApply::class);
+    }
+    public function  ParentDetail()
+    {
+        return $this->hasOne(ParentDetail::class);
     }
 }

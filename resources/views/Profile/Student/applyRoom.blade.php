@@ -1,6 +1,13 @@
 <link href="{{ asset('css/Admin.addRoom.css') }}" rel="stylesheet"/>
 @extends('layouts.app')
-
+@php
+    $disable_submit_btn = 0;
+@endphp
+@if($errors->any())
+    @foreach($errors->all() as $error)
+        <div>{{ $error }}</div>
+    @endforeach
+@endif
 @section('content')
     @if(Auth::user()->user_type == 'user')
         <div class="container">
@@ -22,6 +29,8 @@
                                        name="first_name"
                                        value="{{ $user->first_name }}" required autocomplete="first_name"
                                        readonly placeholder="First name" autofocus>
+                                <h6 style="color: red;padding-top: 10px;">{{ $user->first_name ? "" : "Please Fill Your First Name" }}</h6>
+                                {{ $user->first_name ? '' : $disable_submit_btn = 1 }}
 
                                 @error('first_name')
                                 <span class="invalid-feedback" role="alert">
@@ -41,6 +50,8 @@
                                        name="last_name"
                                        value="{{ $user->last_name }}" required autocomplete="last_name"
                                        readonly placeholder="Last name" autofocus>
+                                <h6 style="color: red;padding-top: 10px;">{{ $user->last_name ? "" : "Please Fill Your Last Name" }}</h6>
+                                {{ $user->last_name ? '' : $disable_submit_btn = 1 }}
 
                                 @error('last_name')
                                 <span class="invalid-feedback" role="alert">
@@ -59,6 +70,8 @@
                                        class="form-control @error('email') is-invalid @enderror" name="email"
                                        value="{{ $user->email }}" readonly required autocomplete="email"
                                        placeholder="email" autofocus>
+                                <h6 style="color: red;padding-top: 10px;">{{ $user->email ? "" : "Please Fill Your Email" }}</h6>
+                                {{ $user->email ? '' : $disable_submit_btn = 1 }}
 
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
@@ -77,6 +90,8 @@
                                        class="form-control @error('number') is-invalid @enderror" name="number"
                                        value="{{ $user->number }}" required autocomplete="number"
                                        readonly placeholder="number" autofocus>
+                                <h6 style="color: red;padding-top: 10px;">{{ $user->number ? "" : "Please Fill Your Number" }}</h6>
+                                {{ $user->number ? '' : $disable_submit_btn = 1 }}
 
                                 @error('number')
                                 <span class="invalid-feedback" role="alert">
@@ -114,29 +129,36 @@
                             <label for="cast" class="col-md-4 col-form-label text-md-right">Cast</label>
 
                             <div class="col-md-6">
-                                <select class="form-control" disabled name="cast" id="cast">
-                                    <option value="0" selected disabled>Select Cast</option>
-                                    <option
-                                        value="gen" {{ $user->StudentProfile->cast == 'gen' ? 'selected' : null }}>
-                                        General
-                                    </option>
-                                    <option
-                                        value="obc" {{ $user->StudentProfile->cast == 'obc' ? 'selected' : null }}>
-                                        OBC
-                                    </option>
-                                    <option
-                                        value="sc" {{ $user->StudentProfile->cast == 'sc' ? 'selected' : null }}>
-                                        SC
-                                    </option>
-                                    <option
-                                        value="st" {{ $user->StudentProfile->cast == 'st' ? 'selected' : null }}>
-                                        ST
-                                    </option>
-                                    <option
-                                        value="oth" {{ $user->StudentProfile->cast == 'oth' ? 'selected' : null }}>
-                                        Other
-                                    </option>
-                                </select>
+                                <input class="form-control"
+                                    @php
+                                        if($user->StudentProfile->cast == 'gen')
+                                        {
+                                            $cast = "GENERAL";
+                                        }
+                                        else if($user->StudentProfile->cast == "obc")
+                                            {
+                                                $cast = "OBC";
+                                            }
+                                        else if($user->StudentProfile->cast == "sc")
+                                            {
+                                                $cast = "ST";
+                                            }
+                                        else if($user->StudentProfile->cast == "sc")
+                                            {
+                                                $cast = "SC";
+                                            }
+                                        else if($user->StudentProfile->cast == "oth")
+                                            {
+                                                $cast = "OTHERS";
+                                            }
+                                        else
+                                            {
+                                                $cast = null;
+                                                $disable_submit_btn = 1;
+                                            }
+                                    @endphp
+                                value="{{ $cast ?? '' }}" readonly>
+                                <h6 style="color: red;padding-top: 10px">{{ $cast ? '' :  'Please Enter Your Cast' }}</h6>
 
                                 @error('cast')
                                 <span class="invalid-feedback" role="alert">
@@ -159,6 +181,8 @@
                                        value="{{ $user->StudentProfile->lane1 }}" readonly required
                                        autocomplete="lane1"
                                        placeholder="lane1" autofocus>
+                                <h6 style="color: red;padding-top: 10px;">{{ $user->StudentProfile->lane1 ? "" : "Please Fill Your Lane1" }}</h6>
+                                {{ $user->StudentProfile->lane1 ? '' : $disable_submit_btn = 1 }}
 
                                 @error('lane1')
                                 <span class="invalid-feedback" role="alert">
@@ -177,6 +201,8 @@
                                        value="{{ $user->StudentProfile->lane2 }}" readonly required
                                        autocomplete="lane2"
                                        placeholder="lane2" autofocus>
+                                <h6 style="color: red;padding-top: 10px;">{{ $user->StudentProfile->lane2 ? "" : "Please Fill Your Lane2" }}</h6>
+                                {{ $user->StudentProfile->lane2 ? '' : $disable_submit_btn = 1 }}
 
                                 @error('lane2')
                                 <span class="invalid-feedback" role="alert">
@@ -195,6 +221,8 @@
                                        class="form-control @error('lane3') is-invalid @enderror" name="lane3"
                                        value="{{ $user->StudentProfile->lane3 }}" readonly autocomplete="lane3"
                                        placeholder="lane3" autofocus>
+                                <h6 style="color: red;padding-top: 10px;">{{ $user->StudentProfile->lane3 ? "" : "Please Fill Your Lane3" }}</h6>
+                                {{ $user->StudentProfile->lane3 ? '' : $disable_submit_btn = 1 }}
 
                                 @error('lane3')
                                 <span class="invalid-feedback" role="alert">
@@ -213,6 +241,9 @@
                                        value="{{ $user->StudentProfile->city }}" readonly required
                                        autocomplete="city"
                                        placeholder="city" autofocus>
+                                <h6 style="color: red;padding-top: 10px;">{{ $user->StudentProfile->city ? "" : "Please Fill Your City" }}</h6>
+                                {{ $user->StudentProfile->city ? '' : $disable_submit_btn = 1 }}
+
 
                                 @error('city')
                                 <span class="invalid-feedback" role="alert">
@@ -354,6 +385,8 @@
                                        value="{{ $user->StudentProfile->pincode }}" readonly required
                                        autocomplete="pincode"
                                        placeholder="pincode" autofocus>
+                                <h6 style="color: red;padding-top: 10px;">{{ $user->StudentProfile->pincode ? "" : "Please Fill Your Pincode" }}</h6>
+                                <p style="display: none;">{{ $user->StudentProfile->pincode ? '' : $disable_submit_btn = 1 }}</p>
 
                                 @error('pincode')
                                 <span class="invalid-feedback" role="alert">
@@ -374,34 +407,8 @@
                             <div class="col-md-6">
                                 <select class="form-control" disabled name="degree" id="degree" required>
                                     <option value="0" disabled selected>Select Your Highest Education</option>
-                                    <option
-                                        value="12" {{ $user->StudentProfile->degree == '12'? 'selected' : null }}>
-                                        12th
-                                    </option>
-                                    <option
-                                        value="diploma" {{ $user->StudentProfile->degree == 'diploma'? 'selected' : null }}>
-                                        Diploma
-                                    </option>
-                                    <option
-                                        value="1" {{ $user->StudentProfile->degree == '1'? 'selected' : null }}>
-                                        1st
-                                        Year
-                                    </option>
-                                    <option
-                                        value="2" {{ $user->StudentProfile->degree == '2'? 'selected' : null }}>
-                                        2nd
-                                        Year
-                                    </option>
-                                    <option
-                                        value="3" {{ $user->StudentProfile->degree == '3'? 'selected' : null }}>
-                                        3rd
-                                        Year
-                                    </option>
-                                    <option
-                                        value="4" {{ $user->StudentProfile->degree == '4'? 'selected' : null }}>
-                                        4th
-                                        Year
-                                    </option>
+                                    <option {{ $user_edu->in_college ? "" : "selected" }}>10/12th Std</option>
+                                    <option {{ $user_edu->in_college ? "selected":"" }}>Diploma/Regular</option>
                                 </select>
 
                                 @error('degree')
@@ -418,10 +425,10 @@
                             <div class="col-md-6">
                                 <input id="marks" type="number" min="1" max="100"
                                        class="form-control @error('marks') is-invalid @enderror" name="marks"
-                                       value="{{ $user->StudentProfile->marks }}" readonly required
+                                       value="{{ $user_edu->in_college ? $user_edu->cgpa : $user_edu->percentage }}" readonly required
                                        autocomplete="marks"
                                        placeholder="Enter Marks" autofocus>
-
+                                <h6 style="color: red;padding-top: 5px;">{{ $user_edu->cgpa  ? "" : "Please Fill Your Marks"}}</h6>
                                 @error('marks')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -430,34 +437,11 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row" style="{{ $user_edu->in_college ? '': 'display: none'}}">
                             <label for="department"
                                    class="col-md-4 col-form-label text-md-right">Department</label>
                             <div class="col-md-6">
-                                <select class="form-control" disabled name="department" id="department">
-                                    <option value="0" selected disabled>Select Department</option>
-                                    <option
-                                        value="computer" {{ $user->StudentProfile->department == 'computer' ? 'selected' : null }}>
-                                        Computer
-                                    </option>
-                                    <option
-                                        value="electrical" {{ $user->StudentProfile->department == 'electrical' ? 'selected' : null }}>
-                                        Electrical
-                                    </option>
-                                    <option
-                                        value="civil" {{ $user->StudentProfile->department == 'civil' ? 'selected' : null }}>
-                                        Civil
-                                    </option>
-                                    <option
-                                        value="mech" {{ $user->StudentProfile->department == 'mech' ? 'selected' : null }}>
-                                        Mechanical
-                                    </option>
-                                    <option
-                                        value="ec" {{ $user->StudentProfile->department == 'ec' ? 'selected' : null }}>
-                                        E.C
-                                    </option>
-                                </select>
-
+                                <input class="form-control" readonly value="{{$dept_name}}">
                                 @error('department')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -466,36 +450,10 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row" style="{{ $user_edu->in_college ? '': 'display: none'}}"    >
                             <label for="sem" class="col-md-4 col-form-label text-md-right">Semester</label>
                             <div class="col-md-6">
-                                <select class="form-control" disabled name="sem" id="sem">
-                                    <option value="0" selected disabled>Select Semester</option>
-                                    <option
-                                        value="1" {{ $user->StudentProfile->sem == '1' ? 'selected' : null }}>1
-                                    </option>
-                                    <option
-                                        value="2" {{ $user->StudentProfile->sem == '2' ? 'selected' : null }}>2
-                                    </option>
-                                    <option
-                                        value="3" {{ $user->StudentProfile->sem == '3' ? 'selected' : null }}>3
-                                    </option>
-                                    <option
-                                        value="4" {{ $user->StudentProfile->sem == '4' ? 'selected' : null }}>4
-                                    </option>
-                                    <option
-                                        value="5" {{ $user->StudentProfile->sem == '5' ? 'selected' : null }}>5
-                                    </option>
-                                    <option
-                                        value="6" {{ $user->StudentProfile->sem == '6' ? 'selected' : null }}>6
-                                    </option>
-                                    <option
-                                        value="7" {{ $user->StudentProfile->sem == '7' ? 'selected' : null }}>7
-                                    </option>
-                                    <option
-                                        value="8" {{ $user->StudentProfile->sem == '8' ? 'selected' : null }}>8
-                                    </option>
-                                </select>
+                                <input class="form-control" value="{{ $user_edu->current_sem }}" readonly>
 
                                 @error('sem')
                                 <span class="invalid-feedback" role="alert">
@@ -575,7 +533,27 @@
                             <hr/>
                             <h4>Preferences</h4>
 
-
+                            <div class="form-group row">
+                                <label for=term" class="col-md-4 col-form-label text-md-right">Select Semester<br/><p>(Applying for)</p></label>
+                                <div class="col-md-6">
+                                    <select class="form-control" name="term" id="term">
+                                        <option value="-1" selected disabled>Select Semester (Applying for)</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6" >6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                    </select>
+                                </div>
+                            </div>
+                            @error('term')
+                            <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
                             <div class="form-group row">
                                 <label for="room_type" class="col-md-4 col-form-label text-md-right">Room Type</label>
                                 <div class="col-md-6">
@@ -656,7 +634,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
-                                    <button class="btn btn-success m-3" id="onApply" type="submit">Apply Now</button>
+                                    <button class="btn btn-success m-3" id="onApply" type="submit" {{ $disable_submit_btn ? "disabled" : "" }}>Apply Now</button>
                                 </div>
                             </div>
                         </div>

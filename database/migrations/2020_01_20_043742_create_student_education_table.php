@@ -15,7 +15,7 @@ class CreateStudentEducationTable extends Migration
     {
         Schema::create('student_education', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('student_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('department_id')->nullable();
             $table->boolean('in_ssc_hsc')->nullable();
             $table->double('percentage')->nullable();
