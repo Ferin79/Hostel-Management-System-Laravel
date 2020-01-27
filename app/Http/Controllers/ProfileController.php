@@ -98,8 +98,15 @@ class ProfileController extends Controller
             $user_edu = StudentEducation::where('user_id', auth()->user()->id)->get();
             $user_edu = $user_edu[0];
             $dept_name = Departments::where('id',$user_edu->department_id)->get();
-            $dept_name = $dept_name[0];
-            $dept_name = $dept_name->department_name;
+            if($dept_name->count() > 0)
+            {
+                $dept_name = $dept_name[0];
+                $dept_name = $dept_name->department_name;
+            }
+            else
+            {
+                $dept_name = null;
+            }
             return view('Profile.Student.applyRoom',compact('user','roomDetails','user_edu','dept_name'));
         }
     }

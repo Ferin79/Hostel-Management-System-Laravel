@@ -1,19 +1,17 @@
-<link href="{{ asset('css/simple-sidebar.css') }}" rel="stylesheet">
-<link href="{{ asset('css/Admin.addRoom.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/Admin.addRoom.css') }}">
 @extends('layouts.app')
 
-@section('content')
+@section('main_content_sidebar')
     @php
         $admin = env('ADMIN');
     @endphp
-    @if(Auth::user()->user_type == 'admin')
-        <h1 class="d-flex justify-content-center align-items-center p-3">Add Rooms</h1>
+    @if(Auth::user()->email == $admin)
+        <h1 class="d-flex justify-content-center align-items-center p-3">Manage & Edit Department</h1>
         <div class="container">
             <div class="row">
                 <form method="POST" id="addRoom__form" enctype="multipart/form-data" action="/admin/add-room">
                     @csrf
                     <div class="col-sm-12 input_field_area">
-
                         <div class="form-group row">
                             <label for="room_type" class="col-md-4 col-form-label text-md-right">Room Name</label>
                             <div class="col-md-8">
@@ -103,6 +101,10 @@
                 </form>
             </div>
             <script>
+                document.querySelector('#menu-toggle').addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector('#wrapper').classList.toggle('toggled');
+                });
                 function readURL1(input) {
                     if (input.files && input.files[0]) {
                         var reader = new FileReader();

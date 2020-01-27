@@ -16,7 +16,7 @@
             <a href="/admin/add-room" class="list-group-item list-group-item-action bg-light">Rooms</a>
             <a href="/admin/edit-dept" class="list-group-item list-group-item-action bg-light">Edit Department</a>
             <a href="/admin/edit-seat-matrix" class="list-group-item list-group-item-action bg-light">Edit Seats Matrix</a>
-            <a href="#" class="list-group-item list-group-item-action bg-light">Edit Profile</a>
+            <a href="/admin/studentApply" class="list-group-item list-group-item-action bg-light">View Student Applied</a>
         </div>
     </div>
     <!-- /#sidebar-wrapper -->

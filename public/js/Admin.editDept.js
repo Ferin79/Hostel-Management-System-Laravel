@@ -1,4 +1,8 @@
 window.onload = function () {
+    document.querySelector('#menu-toggle').addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector('#wrapper').classList.toggle('toggled');
+    });
     refresh_institute_list();
     refresh_department_list();
     $('#add_department').submit(function (e) {

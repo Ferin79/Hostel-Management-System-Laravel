@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App;
 use App\Departments;
 use App\Institution;
 use App\RoomDetails;
 use App\SeatMatrix;
+use App\MeritList;
 use App\StudentApply;
 use App\StudentEducation;
 use App\User;
@@ -194,27 +196,94 @@ class AdminController extends Controller
         }
         return $data;
     }
+
     public function showStudentApply()
     {
         $data = StudentApply::all();
-        return view('Profile.Admin.studentApply',compact('data'));
+        return view('Profile.Admin.studentApply', compact('data'));
     }
 
     public function generate_seat_matrix()
     {
-        $institution = Institution::all();
-        $name = "";
-        foreach ($institution as $institute)
-        {
-             $departments = Departments::where('institute_id',$institute->id)->get();
-             foreach ($departments as $department)
-             {
-                 $stu_dept = StudentEducation::where('department_id',$department->id)->where('in_ssc_hsc',1)->get();
-                 foreach ($stu_dept as $term)
-                 {
-                    echo $term->user_id." ";
-                 }
-             }
+        $applications = StudentApply::all();
+        $ssc_hsc = '';
+        $clg = '';
+        $depts = Departments::all();
+        foreach ($applications as $application) {
+            $joined = $application->user->select('*')
+                ->join('student_education', 'users.id', '=', 'student_education.user_id')
+                ->join('student_applies', 'users.id', '=', 'student_applies.user_id')
+                ->join('student_profiles', 'users.id', '=', 'student_profiles.user_id')
+                ->join('departments', 'student_education.department_id', '=', 'departments.id');
+
+            $ssc_hsc = $joined->where('in_ssc_hsc', 1)->get()->sortByDesc('percentage');
+
+            $joined = $application->user->select('*')
+                ->join('student_education', 'users.id', '=', 'student_education.user_id')
+                ->join('student_applies', 'users.id', '=', 'student_applies.user_id')
+                ->join('student_profiles', 'users.id', '=', 'student_profiles.user_id');
+            $clg = $joined->where('in_ssc_hsc', 0)->get()->sortByDesc('cgpa');
         }
+
+        $merit_list = new MeritList();
+
+        foreach ($ssc_hsc as $data) {
+            $merit_list->users_id = $data->user_id;
+            $merit_list->institutions_id = $data->institute_id;
+            $merit_list->departments_id = $data->department_id;
+            $merit_list->in_ssc_hsc = true;
+            $merit_list->in_college = false;
+            $merit_list->cgpa = $data->cgpa;
+            $merit_list->percentage = $data->percentage;
+            $merit_list->term = $data->term;
+            $merit_list->cast = $data->cast;
+            $merit_list->gender = $data->gender;
+        }
+
+        foreach ($clg as $data) {
+            $merit_list->users_id = $data->user_id;
+            $merit_list->institutions_id = $data->institute_id;
+            $merit_list->departments_id = $data->department_id;
+            $merit_list->in_ssc_hsc = false;
+            $merit_list->in_college = true;
+            $merit_list->cgpa = $data->cgpa;
+            $merit_list->percentage = $data->percentage;
+            $merit_list->term = $data->term;
+            $merit_list->cast = $data->cast;
+            $merit_list->gender = $data->gender;
+        }
+
+        dd($ssc_hsc);
+        return view('Profile.Admin.seatMat', compact('ssc_hsc', 'clg', 'depts'));
+
+//        $applications = StudentApply::all();
+//        foreach ($applications as $application) {
+//            $joined = $application->user->select('*')
+//                ->join('student_education', 'users.id', '=', 'student_education.user_id')
+//                ->join('student_applies', 'users.id', '=', 'student_applies.user_id')
+//                ->join('student_profiles', 'users.id', '=', 'student_profiles.user_id');
+//            $ssc_hsc = $joined->where('in_ssc_hsc', 1)->get()->sortByDesc('percentage');
+//
+//            $joined = $application->user->select('*')
+//                ->join('student_education', 'users.id', '=', 'student_education.user_id')
+//                ->join('student_applies', 'users.id', '=', 'student_applies.user_id')
+//                ->join('student_profiles', 'users.id', '=', 'student_profiles.user_id');
+//            $college = $joined->where('in_college', 1)->get()->sortByDesc('cgpa');
+//
+//        }
+//            $pdf = App::make('dompdf.wrapper');
+//
+//            $output = "";
+//            foreach ($ssc_hsc as $value)
+//            {
+//                $output =  $output . "
+//                    <ul>
+//                        <li>".$value."</li>
+//                    </ul>
+//                ";
+//            }
+//            dd($ssc_hsc);
+//            $pdf->loadHTML($output);
+//            return $pdf->stream();
     }
 }
