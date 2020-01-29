@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="{{asset("css/removeNavbar.css")}}">
 @extends('layouts.app')
 
 @section('main_content_sidebar')
@@ -112,9 +113,60 @@
                             </table>
                         @endif
                     @endforeach
+                    <br><br>
+                    <h1>Merit List</h1>
+                    <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">users_id</th>
+                            <th scope="col">institution_id</th>
+                            <th scope="col">department_id</th>
+                            <th scope="col">in_ssc_hsc</th>
+                            <th scope="col">in_college</th>
+                            <th scope="col">cgpa</th>
+                            <th scope="col">percentage</th>
+                            <th scope="col">term</th>
+                            <th scope="col">cast</th>
+                            <th scope="col">gender</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <p style="display: none;">{{ $len = 0 }}</p>
+                        @foreach($merit_list as $item)
+
+                            <p style="display: none;">{{ $len++ }}</p>
+                            <tr>
+                                <th scope="row">{{$len}}</th>
+                                <td>{{$item->users_id}} </td>
+                                <td>{{$item->institution_id}} </td>
+                                <td>{{$item->department_id}} </td>
+                                <td>{{$item->in_ssc_hsc}} </td>
+                                <td>{{$item->in_college}} </td>
+                                <td>{{$item->cgpa}} </td>
+                                <td>{{$item->percentage}} </td>
+                                <td>{{$item->term}} </td>
+                                <td>{{$item->cast}} </td>
+                                <td>{{$item->gender}} </td>
+                            </tr>
+
+                        @endforeach
+                        </tbody>
+                    </table>
+                    <form action="/admin/generate_master_seat_matrix" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-success">Generate Master Seat-Matrix</button>
+                    </form>
+
                 </div>
             </div>
         </div>
+        <script>
+            document.querySelector('#menu-toggle').addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector('#wrapper').classList.toggle('toggled');
+            });
+        </script>
     @else
         <script>window.location = "/unauth";</script>
     @endif

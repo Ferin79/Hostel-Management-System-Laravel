@@ -15,9 +15,9 @@ class CreateMeritListsTable extends Migration
     {
         Schema::create('merit_lists', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('institutions_id');
-            $table->unsignedBigInteger('departments_id');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('institution_id')->nullable();
+            $table->unsignedBigInteger('department_id')->nullable();
 //            $table->unsignedBigInteger('student_applies_id');
                        $table->boolean('in_ssc_hsc')->nullable();
                        $table->boolean('in_college')->nullable();

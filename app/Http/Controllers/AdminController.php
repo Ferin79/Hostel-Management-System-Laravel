@@ -11,6 +11,7 @@ use App\MeritList;
 use App\StudentApply;
 use App\StudentEducation;
 use App\User;
+use App\CopySeatMatrix;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Intervention\Image\Facades\Image;
@@ -173,8 +174,19 @@ class AdminController extends Controller
             "boys_seat" => 'required',
             "girls_seat" => 'required',
         ]);
-        $new = new SeatMatrix();
-        $new->create($data);
+//        $new  = new SeatMatrix();
+//        $new->create($data);
+
+        $new = SeatMatrix::firstOrNew(['institute_id' => $data['institute_id']],
+            ['department_id' => $data['department_id']] ,
+            ['year' => $data['year']] ,
+            ['cast' => $data['cast']]);
+
+//         dd($new);
+
+        $new->boys_seat = $data['boys_seat'];
+        $new->girls_seat = $data['girls_seat'];
+        $new->save();
         return redirect('/');
     }
 
@@ -225,12 +237,12 @@ class AdminController extends Controller
             $clg = $joined->where('in_ssc_hsc', 0)->get()->sortByDesc('cgpa');
         }
 
-        $merit_list = new MeritList();
 
         foreach ($ssc_hsc as $data) {
-            $merit_list->users_id = $data->user_id;
-            $merit_list->institutions_id = $data->institute_id;
-            $merit_list->departments_id = $data->department_id;
+            $merit_list = MeritList::firstOrCreate(['user_id' => $data->user_id ]);
+            $merit_list->user_id = $data->user_id;
+            $merit_list->institution_id = $data->institute_id;
+            $merit_list->department_id = $data->department_id;
             $merit_list->in_ssc_hsc = true;
             $merit_list->in_college = false;
             $merit_list->cgpa = $data->cgpa;
@@ -238,12 +250,14 @@ class AdminController extends Controller
             $merit_list->term = $data->term;
             $merit_list->cast = $data->cast;
             $merit_list->gender = $data->gender;
+            $merit_list->save();
         }
 
         foreach ($clg as $data) {
+            $merit_list = MeritList::firstOrCreate(['user_id' => $data->user_id ]);
             $merit_list->users_id = $data->user_id;
-            $merit_list->institutions_id = $data->institute_id;
-            $merit_list->departments_id = $data->department_id;
+            $merit_list->institution_id = $data->institute_id;
+            $merit_list->department_id = $data->department_id;
             $merit_list->in_ssc_hsc = false;
             $merit_list->in_college = true;
             $merit_list->cgpa = $data->cgpa;
@@ -251,10 +265,16 @@ class AdminController extends Controller
             $merit_list->term = $data->term;
             $merit_list->cast = $data->cast;
             $merit_list->gender = $data->gender;
+            $merit_list->save();
         }
 
-        dd($ssc_hsc);
-        return view('Profile.Admin.seatMat', compact('ssc_hsc', 'clg', 'depts'));
+        // Create MasterMeritList migration
+        // ADD create MasterMeritList button on edit_seat_matrix page, after submitting that button
+        // Normalize cast field
+
+        $merit_list = MeritList::all();
+
+        return view('Profile.Admin.seatMat', compact('ssc_hsc', 'clg', 'depts','merit_list'));
 
 //        $applications = StudentApply::all();
 //        foreach ($applications as $application) {
@@ -285,5 +305,26 @@ class AdminController extends Controller
 //            dd($ssc_hsc);
 //            $pdf->loadHTML($output);
 //            return $pdf->stream();
+    }
+
+    public function generateMasterSeatMatrix()
+    {
+        $temp_seat_matrix = SeatMatrix::all();
+
+        foreach($temp_seat_matrix as $seat_matrix){
+            $master_seat_matrix = CopySeatMatrix::firstOrNew(['institution_id' => $seat_matrix->institute_id ,
+                'department_id' => $seat_matrix->department_id ,
+                'year' => $seat_matrix->year ,
+                'cast' => $seat_matrix->cast]);
+            $master_seat_matrix->institution_id = $seat_matrix->institute_id;
+            $master_seat_matrix->department_id = $seat_matrix->department_id;
+            $master_seat_matrix->year = $seat_matrix->year;
+            $master_seat_matrix->cast = $seat_matrix->cast;
+            $master_seat_matrix->boys_seat = $seat_matrix->boys_seat;
+            $master_seat_matrix->girls_seat = $seat_matrix->girls_seat;
+            $master_seat_matrix->save();
+        }
+        dd(CopySeatMatrix::all());
+
     }
 }

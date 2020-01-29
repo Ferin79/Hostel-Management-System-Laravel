@@ -77,4 +77,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(ParentDetail::class);
     }
+    public  function MeritList()
+    {
+        return $this->hasOne(MeritList::class);
+    }
 }

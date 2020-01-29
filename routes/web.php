@@ -59,3 +59,4 @@ Route::get('/admin/getUser/{userId}',function ($userId){
     ]);
     return $data;
 });
+Route::post('/admin/generate_master_seat_matrix','AdminController@generateMasterSeatMatrix');
