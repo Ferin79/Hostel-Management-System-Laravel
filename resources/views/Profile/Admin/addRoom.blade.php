@@ -29,6 +29,82 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="department_id"
+                                   class="col-md-4 col-form-label text-md-right">Department</label>
+                            <div class="col-md-8">
+                                <select class="form-control" required name="department_id" id="department_id">
+                                    <option value="0" selected disabled>Select Department</option>
+                                        @foreach ($collection=App\Departments::all() as $item)
+                                            <option value="{{$item->id}}">{{$item->department_name}}</option>
+                                        @endforeach
+                                </select>
+                                @error('department_id')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label for="room_number" class="col-md-4 col-form-label text-md-right">Room Number</label>
+                            <div class="col-md-8">
+                                <input id="room_number" type="number" min="1"
+                                       class="form-control @error('number_bed') is-invalid @enderror"
+                                       name="room_number" value="{{ old('room_number') }}" required
+                                       autocomplete="room_number" placeholder="room_number" autofocus>
+
+                                @error('room_number')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="capacity" class="col-md-4 col-form-label text-md-right">Capacity</label>
+                            <div class="col-md-8">
+                                <input id="capacity" type="number" min="1"
+                                       class="form-control @error('number_bed') is-invalid @enderror"
+                                       name="capacity" value="{{ old('capacity') }}" required
+                                       autocomplete="capacity" placeholder="capacity" autofocus>
+
+                                @error('capacity')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="is_ac" class="col-md-4 col-form-label text-md-right">is_ac</label>
+                            <div class="col-md-1">
+                                <input id="is_ac" type="checkbox"
+                                       class="form-control" value="1"
+                                       name="is_ac"  autofocus>                                
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="is_guest" class="col-md-4 col-form-label text-md-right">is_guest</label>
+                            <div class="col-md-1">
+                                <input id="is_guest" type="checkbox"
+                                       class="form-control"
+                                       name="is_guest"  autofocus>                                
+                            </div>
+                        </div>
+
+                        {{--department_id 
+                            room_number
+                            capacity
+                            is_ac
+                            is_guest
+                            is_alloted --}}
+
+                        {{-- <div class="form-group row">
                             <label for="room_select"
                                    class="col-md-4 col-form-label text-md-right">Room Type</label>
                             <div class="col-md-8">
@@ -45,7 +121,8 @@
                                     </span>
                                 @enderror
                             </div>
-                        </div>
+                        </div> --}}
+
                         <div class="form-group row">
                             <label for="price" class="col-md-4 col-form-label text-md-right">Price per Head</label>
                             <div class="col-md-8">

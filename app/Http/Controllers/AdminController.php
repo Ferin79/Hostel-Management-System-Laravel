@@ -77,13 +77,20 @@ class AdminController extends Controller
 
     public function addRoom()
     {
+        // dd(request());
         $data = request()->validate([
             'room_type' => 'required',
-            'room_select' => 'required',
             'price' => 'required',
             'image1' => ['required', 'image'],
             'image2' => ['required', 'image'],
+            'department_id' => 'required',
+            'room_number' => ['required','unique:room_details'],
+            'capacity' => 'required',
+            // 'room_select' => 'required',
         ]);
+        $data['is_ac'] = request()->has('is_ac');
+        $data['is_guest'] = request()->has('is_guest');
+        
         if (request('image1') && request('image2')) {
             $imagePath1 = request('image1')->store('uploads/Rooms', 'public');
             $image1 = Image::make(public_path("storage/{$imagePath1}"))->fit(1280, 720);
@@ -96,12 +103,19 @@ class AdminController extends Controller
                 'image2' => $imagePath2
             ];
         }
-        $new = new RoomDetails();
+        $new = new RoomDetails();   
+             
+        $new->capacity = $data['capacity'];
+        $new->room_number = $data['room_number'];
+        $new->department_id = $data['department_id'];
+        $new->user_id = 
         $new->create(array_merge(
             $data,
             $imageArray,
             ['user_id' => auth()->user()->id]
         ));
+
+        
         return redirect('/admin/add-room');
     }
 
@@ -166,6 +180,9 @@ class AdminController extends Controller
 
     public function addSeatMatrix()
     {
+        if(CopySeatMatrix::all()->count() > 0){
+            return redirect('/');
+        }
         $data = request()->validate([
             "institute_id" => 'required',
             "department_id" => 'required',
@@ -313,9 +330,9 @@ class AdminController extends Controller
 
         foreach($temp_seat_matrix as $seat_matrix){
             $master_seat_matrix = CopySeatMatrix::firstOrNew(['institution_id' => $seat_matrix->institute_id ,
-                'department_id' => $seat_matrix->department_id ,
-                'year' => $seat_matrix->year ,
-                'cast' => $seat_matrix->cast]);
+                                                                'department_id' => $seat_matrix->department_id ,
+                                                                'year' => $seat_matrix->year ,
+                                                                'cast' => $seat_matrix->cast]);
             $master_seat_matrix->institution_id = $seat_matrix->institute_id;
             $master_seat_matrix->department_id = $seat_matrix->department_id;
             $master_seat_matrix->year = $seat_matrix->year;
@@ -326,5 +343,8 @@ class AdminController extends Controller
         }
         dd(CopySeatMatrix::all());
 
+    }
+    public function allotSeats(){
+        
     }
 }

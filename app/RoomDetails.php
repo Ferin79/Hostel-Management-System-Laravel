@@ -6,9 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class RoomDetails extends Model
 {
-    protected $guarded = [];
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+    protected $fillable = ['room_type','price','image1','image2','is_ac','is_guest','department_id','room_number','capacity'];           
+        
 }

@@ -8,6 +8,14 @@
     @if(Auth::user()->email == $admin)
         <h1 class="d-flex justify-content-center align-items-center p-3">Show Student Applied</h1>
         <div class="container">
+            <form action="/admin/generate_master_seat_matrix" method="post">
+                @csrf
+                <button type="submit" class="btn btn-outline-success">Generate Master Seat-Matrix</button>
+            </form>
+            <form action="/admin/allot_seats" method="post">
+                @csrf
+                <button type="submit" class="btn btn-outline-success">Allot Seats</button>
+            </form>
             <div class="row">
                 <div class="col col-md-12">
                     <h1>In SSC/HSC</h1>
@@ -153,10 +161,7 @@
                         @endforeach
                         </tbody>
                     </table>
-                    <form action="/admin/generate_master_seat_matrix" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-outline-success">Generate Master Seat-Matrix</button>
-                    </form>
+                   
 
                 </div>
             </div>
