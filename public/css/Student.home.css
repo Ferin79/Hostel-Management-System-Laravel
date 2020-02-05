@@ -47,6 +47,10 @@
 {
     background-color: #fd79a8;
 }
+.card-10
+{
+    background-color: #6c5ce7;
+}
 .card-wrapper:hover
 {
     cursor: pointer;

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSeatMatricesTable extends Migration
+class RenameSeatMatrixTableColumn extends Migration
 {
     /**
      * Run the migrations.
@@ -13,6 +13,8 @@ class CreateSeatMatricesTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('seat_matrices');
+
         Schema::create('seat_matrices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('institution_id');
@@ -22,9 +24,6 @@ class CreateSeatMatricesTable extends Migration
             $table->integer('boys_seat');
             $table->integer('girls_seat');
             $table->timestamps();
-
-            $table->index('institution_id');
-            $table->index('department_id');
         });
     }
 
@@ -35,6 +34,6 @@ class CreateSeatMatricesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('seat_matrices');
+        //
     }
 }

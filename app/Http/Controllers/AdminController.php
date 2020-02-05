@@ -77,20 +77,22 @@ class AdminController extends Controller
 
     public function addRoom()
     {
-        // dd(request());
         $data = request()->validate([
             'room_type' => 'required',
             'price' => 'required',
-            'image1' => ['required', 'image'],
-            'image2' => ['required', 'image'],
             'department_id' => 'required',
             'room_number' => ['required','unique:room_details'],
             'capacity' => 'required',
+            'term' => 'required|integer|between:1,10',
+            'gender' => 'required',
+            // 'image1' => ['required', 'image'],
+            // 'image2' => ['required', 'image'],
             // 'room_select' => 'required',
         ]);
         $data['is_ac'] = request()->has('is_ac');
         $data['is_guest'] = request()->has('is_guest');
-        
+        $data['institution_id'] = Departments::find($data['department_id'])->Institution->id;
+        $imageArray = [];
         if (request('image1') && request('image2')) {
             $imagePath1 = request('image1')->store('uploads/Rooms', 'public');
             $image1 = Image::make(public_path("storage/{$imagePath1}"))->fit(1280, 720);
@@ -103,19 +105,15 @@ class AdminController extends Controller
                 'image2' => $imagePath2
             ];
         }
-        $new = new RoomDetails();   
-             
-        $new->capacity = $data['capacity'];
-        $new->room_number = $data['room_number'];
-        $new->department_id = $data['department_id'];
-        $new->user_id = 
-        $new->create(array_merge(
+        $new = new RoomDetails();
+        $merge = array_merge(
             $data,
-            $imageArray,
-            ['user_id' => auth()->user()->id]
-        ));
+            $imageArray
+        );
+        $new->fill($merge);
+        $new->save();
 
-        
+
         return redirect('/admin/add-room');
     }
 
@@ -156,7 +154,7 @@ class AdminController extends Controller
     public function addDepartment()
     {
         $data = request()->validate([
-            "institute_id" => 'required',
+            "institution_id" => 'required',
             "department_name" => 'required'
         ]);
 
@@ -167,9 +165,9 @@ class AdminController extends Controller
 
     public function getDepartment()
     {
-        $val = request('institute_id');
+        $val = request('institution_id');
         $data = Departments::all();
-        $data = $data->where('institute_id', $val);
+        $data = $data->where('institution_id', $val);
         return $data;
     }
 
@@ -181,26 +179,26 @@ class AdminController extends Controller
     public function addSeatMatrix()
     {
         if(CopySeatMatrix::all()->count() > 0){
-            return redirect('/');
+        return 'Cannot edit after copy seat matrix generated';
         }
+
         $data = request()->validate([
-            "institute_id" => 'required',
+            "institution_id" => 'required',
             "department_id" => 'required',
             "year" => 'required',
             "cast" => 'required',
             "boys_seat" => 'required',
             "girls_seat" => 'required',
         ]);
-//        $new  = new SeatMatrix();
-//        $new->create($data);
-
-        $new = SeatMatrix::firstOrNew(['institute_id' => $data['institute_id']],
-            ['department_id' => $data['department_id']] ,
-            ['year' => $data['year']] ,
-            ['cast' => $data['cast']]);
-
-//         dd($new);
-
+//        dd($data);
+        $new = SeatMatrix::firstOrNew([
+            'institution_id' => $data['institution_id'],
+            'department_id' => $data['department_id'],
+            'year' => $data['year'],
+            'cast' => $data['cast']
+            ]);
+//        dd(SeatMatrix::where('year', '6')->get()->first());
+        dd($new);
         $new->boys_seat = $data['boys_seat'];
         $new->girls_seat = $data['girls_seat'];
         $new->save();
@@ -212,12 +210,13 @@ class AdminController extends Controller
         $data = SeatMatrix::all();
         $institute = Institution::all();
         $department = Departments::all();
+        //get institute name
         for ($i = 0; $i < $data->count(); $i++) {
-            $in = $institute->where("id", $data[$i]["institute_id"])->toArray();
+            $in = $institute->where("id", $data[$i]["institution_id"])->toArray();
             foreach ($in as $value) {
-                $data[$i]["institute_id"] = $value["institute"];
+                $data[$i]["institution_id"] = $value["institute"];
             }
-
+        // get department name
             $in = $department->where('id', $data[$i]['department_id'])->toArray();
             foreach ($in as $value) {
                 $data[$i]["department_id"] = $value["department_name"];
@@ -258,7 +257,7 @@ class AdminController extends Controller
         foreach ($ssc_hsc as $data) {
             $merit_list = MeritList::firstOrCreate(['user_id' => $data->user_id ]);
             $merit_list->user_id = $data->user_id;
-            $merit_list->institution_id = $data->institute_id;
+            $merit_list->institution_id = $data->institution_id;
             $merit_list->department_id = $data->department_id;
             $merit_list->in_ssc_hsc = true;
             $merit_list->in_college = false;
@@ -273,7 +272,7 @@ class AdminController extends Controller
         foreach ($clg as $data) {
             $merit_list = MeritList::firstOrCreate(['user_id' => $data->user_id ]);
             $merit_list->users_id = $data->user_id;
-            $merit_list->institution_id = $data->institute_id;
+            $merit_list->institution_id = $data->institution_id;
             $merit_list->department_id = $data->department_id;
             $merit_list->in_ssc_hsc = false;
             $merit_list->in_college = true;
@@ -329,11 +328,11 @@ class AdminController extends Controller
         $temp_seat_matrix = SeatMatrix::all();
 
         foreach($temp_seat_matrix as $seat_matrix){
-            $master_seat_matrix = CopySeatMatrix::firstOrNew(['institution_id' => $seat_matrix->institute_id ,
+            $master_seat_matrix = CopySeatMatrix::firstOrNew(['institution_id' => $seat_matrix->institution_id ,
                                                                 'department_id' => $seat_matrix->department_id ,
                                                                 'year' => $seat_matrix->year ,
                                                                 'cast' => $seat_matrix->cast]);
-            $master_seat_matrix->institution_id = $seat_matrix->institute_id;
+            $master_seat_matrix->institution_id = $seat_matrix->institution_id;
             $master_seat_matrix->department_id = $seat_matrix->department_id;
             $master_seat_matrix->year = $seat_matrix->year;
             $master_seat_matrix->cast = $seat_matrix->cast;
@@ -345,6 +344,35 @@ class AdminController extends Controller
 
     }
     public function allotSeats(){
-        
+        $merit_list = MeritList::where('in_ssc_hsc',1)->get();
+
+//        dd($merit_list);
+        $alloted_seats = collect([]);
+        foreach($merit_list as $item){
+//            dd($item);
+           $seat_matrix =  SeatMatrix::where([
+                ['institution_id' , $item->institution_id],
+                ['department_id' , $item->department_id],
+                ['year' , $item->term],
+                ['cast' , $item->cast],
+            ])->get()->first();
+           if($seat_matrix){
+               if ($item->gender == 'male'){
+                   if ($seat_matrix->boys_seat > 0){
+                       $seat_matrix->boys_seat -= 1;
+                       $alloted_seats->add($item);
+                   }
+               }elseif ($item->gender == 'female'){
+                   if ($seat_matrix->girls_seat > 0){
+                       $seat_matrix->girls_seat -= 1;
+                       $alloted_seats->add($item);
+                   }
+               }
+//               $seat_matrix->save();
+           }
+
+        }
+        dd($alloted_seats);
+
     }
 }

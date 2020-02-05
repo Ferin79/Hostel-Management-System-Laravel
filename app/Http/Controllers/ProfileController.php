@@ -8,9 +8,11 @@ use App\ParentDetail;
 use App\RoomDetails;
 use App\StudentApply;
 use App\StudentEducation;
+use App\StudentLeave;
 use App\StudentProfile;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
 class ProfileController extends Controller
@@ -132,7 +134,7 @@ class ProfileController extends Controller
         ]);
         $new = new ParentDetail();
         $new->create(array_merge(
-            $data,
+            $data,-
             ['user_id' => auth()->user()->id]
         ));
 
@@ -149,5 +151,34 @@ class ProfileController extends Controller
         $data = Departments::all();
         $data = $data->where('institute_id',$institute_id);
         return $data;
+    }
+
+    public function getLeave()
+    {
+        return view('Profile.Student.leave');
+    }
+
+    public function addLeave()
+    {
+        $data = request()->validate([
+            "reason" => "required",
+            "startfrom" => 'required',
+            "duration" => 'required',
+            "contact" => 'required'
+        ]);
+
+        $new = new StudentLeave();
+        $new->reason = $data['reason'];
+        $new->startfrom = $data['startfrom'];
+        $new->duration = $data['duration'];
+        $new->contact = $data['contact'];
+        $new->user_id = Auth::user()->id;
+        $new->isApproved = 0;
+        $new->save();/*(array_merge([
+            $data,
+            ['user_id' => Auth::user()->id],
+            ['isApproved' => '0']
+        ]));*/
+        return "done";
     }
 }

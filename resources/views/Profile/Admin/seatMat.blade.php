@@ -146,7 +146,7 @@
                             <p style="display: none;">{{ $len++ }}</p>
                             <tr>
                                 <th scope="row">{{$len}}</th>
-                                <td>{{$item->users_id}} </td>
+                                <td>{{$item->user_id}} </td>
                                 <td>{{$item->institution_id}} </td>
                                 <td>{{$item->department_id}} </td>
                                 <td>{{$item->in_ssc_hsc}} </td>
@@ -161,7 +161,7 @@
                         @endforeach
                         </tbody>
                     </table>
-                   
+
 
                 </div>
             </div>

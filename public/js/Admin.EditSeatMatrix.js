@@ -56,7 +56,7 @@ function refresh_department_list() {
             type: 'GET',
             url: "/admin/get_department",
             data: {
-                "institute_id": institute_id,
+                "institution_id": institute_id,
             },
             success: function (result) {
                 data = Object.entries(result);
@@ -74,8 +74,8 @@ function refresh_department_list() {
 
 function add_seat_block() {
     token = $('#token').val();
-    institute_id = $('.add_institution').val();
-    if (parseInt(institute_id) > 0) {
+    institution_id = $('.add_institution').val();
+    if (parseInt(institution_id) > 0) {
         department_id = $('.add_department').val();
         if (parseInt(department_id) > 0) {
             year = $('.add_year').val();
@@ -86,11 +86,11 @@ function add_seat_block() {
                     boys = $('#boys_seats').val();
                     girls = $('#girls_seats').val();
                     $.ajax({
-                        type:"POST",
+                        type:"post",
                         url:"/admin/seatMatrix",
                         data:{
                             "_token":token,
-                            "institute_id":institute_id,
+                            "institution_id":institution_id,
                             "department_id":department_id,
                             "year":year,
                             "cast":cast,
@@ -173,12 +173,13 @@ function refresh_table() {
                 }
                 $('.add_list_here').append(`<tr>
                             <th scope="row">${i+1}</th>
-                            <td>${ data[i][1].institute_id }</td>
+                            <td>${ data[i][1].institution_id }</td>
                             <td>${ data[i][1].department_id }</td>
                             <td>${ data[i][1].year }</td>
                             <td>${ data[i][1].cast }</td>
                             <td>${ data[i][1].boys_seat }</td>
                             <td>${ data[i][1].girls_seat }</td>
+                            <td> <i class="fa fa-trash" style="color:red;"></i></td>
                             </tr>`)
             }
         },

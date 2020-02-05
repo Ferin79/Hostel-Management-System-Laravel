@@ -81,4 +81,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(MeritList::class);
     }
+
+    public function studentleave()
+    {
+        return $this->hasMany(StudentLeave::class);
+    }
 }

@@ -5,6 +5,11 @@
     @php
         $admin = env('ADMIN');
     @endphp
+    @if(!empty($errors))
+        @foreach($errors->all() as $error)
+            <div>{{ $error }}</div>
+        @endforeach
+    @endif
     @if(Auth::user()->email == $admin)
         <h1 class="d-flex justify-content-center align-items-center p-3">Manage & Edit Department</h1>
         <div class="container">
@@ -34,9 +39,9 @@
                             <div class="col-md-8">
                                 <select class="form-control" required name="department_id" id="department_id">
                                     <option value="0" selected disabled>Select Department</option>
-                                        @foreach ($collection=App\Departments::all() as $item)
-                                            <option value="{{$item->id}}">{{$item->department_name}}</option>
-                                        @endforeach
+                                    @foreach ($collection=App\Departments::all() as $item)
+                                        <option value="{{$item->id}}">{{$item->department_name}}</option>
+                                    @endforeach
                                 </select>
                                 @error('department_id')
                                 <span class="invalid-feedback" role="alert">
@@ -46,14 +51,31 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <label for="term"
+                                   class="col-md-4 col-form-label text-md-right">Term</label>
+                            <div class="col-md-8">
+                                <select class="form-control" required name="term" id="term">
+                                    <option value="0" selected disabled>Select Term</option>
+                                    @for ($term=1; $term <=4; $term++)
+                                        <option value="{{$term}}">{{$term}}</option>
+                                    @endfor
+                                </select>
+                                @error('term')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label for="room_number" class="col-md-4 col-form-label text-md-right">Room Number</label>
                             <div class="col-md-8">
-                                <input id="room_number" type="number" min="1"
+                                <input id="room_number" type="text" min="1"
                                        class="form-control @error('number_bed') is-invalid @enderror"
                                        name="room_number" value="{{ old('room_number') }}" required
-                                       autocomplete="room_number" placeholder="room_number" autofocus>
+                                       autocomplete="room_number" placeholder="room_number" autofocus />
 
                                 @error('room_number')
                                 <span class="invalid-feedback" role="alert">
@@ -62,7 +84,7 @@
                                 @enderror
                             </div>
                         </div>
-                        
+
                         <div class="form-group row">
                             <label for="capacity" class="col-md-4 col-form-label text-md-right">Capacity</label>
                             <div class="col-md-8">
@@ -80,11 +102,32 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="gender" class="col-md-4 col-form-label text-md-right">Gender</label>
+
+                            <div class="col-md-6">
+                                <input id="male" type="radio"
+                                       class="@error('gender') is-invalid @enderror"  name="gender"
+                                       value="male">
+                                <label>Male</label>
+
+                                <input id="female" type="radio"
+                                       class="@error('gender')  is-invalid @enderror"  name="gender"
+                                       value="female"><label>Female</label>
+
+                                @error('gender')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="is_ac" class="col-md-4 col-form-label text-md-right">is_ac</label>
                             <div class="col-md-1">
                                 <input id="is_ac" type="checkbox"
                                        class="form-control" value="1"
-                                       name="is_ac"  autofocus>                                
+                                       name="is_ac"  autofocus>
                             </div>
                         </div>
 
@@ -93,11 +136,12 @@
                             <div class="col-md-1">
                                 <input id="is_guest" type="checkbox"
                                        class="form-control"
-                                       name="is_guest"  autofocus>                                
+                                       name="is_guest"  autofocus>
                             </div>
                         </div>
 
-                        {{--department_id 
+                        {{--department_id
+                            term
                             room_number
                             capacity
                             is_ac
@@ -144,7 +188,7 @@
                             <div class="col-md-8">
                                 <input id="image1" type="file" onchange="loadFile(event)"
                                        class="form-control @error('image1') is-invalid @enderror"
-                                       name="image1" required autofocus accept="image/*">
+                                       name="image1"  autofocus accept="image/*">
                                 @error('image1')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -158,7 +202,7 @@
                             <div class="col-md-8">
                                 <input id="image2" type="file"
                                        class="form-control @error('image2') is-invalid @enderror"
-                                       name="image2" required autofocus accept="image/*">
+                                       name="image2"  autofocus accept="image/*">
                                 @error('image2')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

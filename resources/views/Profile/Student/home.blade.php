@@ -42,7 +42,14 @@
                 <img src="{{url('images/pizza.png')}}">
             </div>
         </div>
-
+        <div id="leave_request" class="card-wrapper card-10">
+            <div class="text-wrapper">
+                <h3>Make Leave Requests</h3>
+            </div>
+            <div class="icon-wrapper">
+                <i class="fa fa-bookmark fa-4x"></i>
+            </div>
+        </div>
         <div id="edit_profile" class="card-wrapper card-6">
             <div class="text-wrapper">
                 <h3>Edit Profile</h3>

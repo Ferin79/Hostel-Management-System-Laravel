@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDepartmentsTable extends Migration
+class RenameDeptTableColumn extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateDepartmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('departments', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('institution_id');
-            $table->text('department_name');
-            $table->timestamps();
+        Schema::table('departments', function (Blueprint $table) {
+            $table->renameColumn('institute_id','institution_id');
         });
     }
 
@@ -28,6 +25,6 @@ class CreateDepartmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('departments');
+        //
     }
 }

@@ -1,4 +1,4 @@
-<link href="{{ asset('css/Admin.addRoom.css') }}" rel="stylesheet"/>
+<link href="{{ asset('css/Student.applyRoom.css') }}" rel="stylesheet"/>
 @extends('layouts.app')
 @php
     $disable_submit_btn = 0;

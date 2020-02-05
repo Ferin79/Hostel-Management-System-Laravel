@@ -44,24 +44,35 @@
                 success: function (data) {
                     data = Object.entries(data);
                     console.log(data);
-                    $('#name').append(data[0][1].first_name);
-                    $('#name').append(" "+data[0][1].last_name);
-                    $('#email').append(" "+data[0][1].email);
-                    $('#number').append(" "+data[0][1].number);
 
-                    $('#address').append(" "+data[1][1].lane1);
+                    $('#name').empty();
+                    $('#email').empty();
+                    $('#number').empty();
+                    $('#address').empty();
+                    $('#cast').empty();
+                    $('#passout').empty();
+                    $('#marks').empty();
+                    $('#department').empty();
+                    $('#sem').empty();
+
+                    $('#name').append('Name: '+data[0][1].first_name);
+                    $('#name').append(" "+data[0][1].last_name);
+                    $('#email').append("Email: "+data[0][1].email);
+                    $('#number').append("Contact No: "+data[0][1].number);
+
+                    $('#address').append("Address: "+data[1][1].lane1);
                     $('#address').append(" "+data[1][1].lane2);
                     $('#address').append(" "+data[1][1].lane3);
                     $('#address').append(" "+data[1][1].city);
                     $('#address').append(" "+data[1][1].state);
                     $('#address').append(" "+data[1][1].pincode);
 
-                    $('#cast').append(" "+data[1][1].cast);
+                    $('#cast').append("Cast: "+data[1][1].cast);
 
-                    $('#passout').append(" "+data[1][1].degree);
-                    $('#marks').append(" "+data[1][1].marks);
-                    $('#department').append(" "+data[1][1].department);
-                    $('#sem').append(" "+data[1][1].sem);
+                    $('#passout').append("Passout: "+data[1][1].degree);
+                    $('#marks').append("Marks: "+data[1][1].marks);
+                    $('#department').append("Department: "+data[1][1].department);
+                    $('#sem').append("Sem: "+data[1][1].sem);
 
                 },
                 error: function () {

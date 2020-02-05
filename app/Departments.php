@@ -12,4 +12,8 @@ class Departments extends Model
     {
         return $this->hasMany(StudentEducation::class);
     }
+    public function Institution()
+    {
+        return $this->belongsTo(Institution::class);
+    }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDepartmentsTable extends Migration
+class AddGenderInRoomDetails extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateDepartmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('departments', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('institution_id');
-            $table->text('department_name');
-            $table->timestamps();
+        Schema::table('room_details', function (Blueprint $table) {
+            $table->text('gender')->nullable();
         });
     }
 
@@ -28,6 +25,8 @@ class CreateDepartmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('departments');
+        Schema::table('room_details', function (Blueprint $table) {
+            $table->dropColumn('gender');
+        });
     }
 }
