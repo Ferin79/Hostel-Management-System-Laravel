@@ -17,7 +17,7 @@ window.onload = function () {
                 url: "/admin/add-department",
                 data: {
                     '_token': token,
-                    'institute_id':institute_id,
+                    'institution_id':institute_id,
                     'department_name': data
                 },
                 success: function () {
@@ -25,6 +25,7 @@ window.onload = function () {
                         title: "Department Added",
                         icon: "success",
                     });
+                    refresh_department_list();
                 },
                 error: function () {
                     swal({
@@ -143,7 +144,7 @@ function refresh_department_list() {
             type: 'GET',
             url: "/admin/get_department",
             data:{
-                "institute_id":institute_id,
+                "institution_id":institute_id,
             },
             success: function (result) {
                 data = Object.entries(result);

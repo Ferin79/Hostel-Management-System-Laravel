@@ -18,13 +18,13 @@
             </form>
             <div class="row">
                 <div class="col col-md-12">
-                    <h1>In SSC/HSC</h1>
+                    <h1 class="text-center">In SSC/HSC</h1>
                     @foreach ($depts as $dept)
                         @if (App\StudentEducation::where('department_id', $dept->id)->count() > 0 &&
                              App\StudentEducation::where('department_id', $dept->id)->first()->in_ssc_hsc)
 
 
-                            <h1>{{$dept->department_name}}</h1>
+                            <h3 class="font-weight-bold">{{$dept->department_name}}</h3>
                             <table class="table">
                                 <thead class="thead-dark">
                                 <tr>
@@ -75,7 +75,7 @@
                     @endforeach
 
 
-                    <h1>In Clg</h1>
+                    <h1 class="text-center mt-5 pt-5">In College</h1>
                     @foreach ($depts as $dept)
                         @if (App\StudentEducation::where('department_id', $dept->id)->count() > 0 &&
                              App\StudentEducation::where('department_id', $dept->id)->first()->in_college)

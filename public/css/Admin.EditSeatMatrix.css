@@ -15,6 +15,9 @@
     justify-content: space-between;
     align-items: center;
 }
+i{
+    cursor: pointer;
+}
 @media(max-width: 500px){
     .seat_wrapper
     {

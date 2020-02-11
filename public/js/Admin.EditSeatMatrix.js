@@ -15,6 +15,7 @@ window.onload = function () {
         e.preventDefault();
         add_seat_block();
     });
+
     $('#search_table').on('keyup',function () {
         text = $(this).val().toLowerCase();
         $('table tbody tr').each(function () {
@@ -141,7 +142,8 @@ function add_seat_block() {
     }
 }
 
-function refresh_table() {
+function refresh_table()
+{
     $('.add_list_here').empty();
     $.ajax({
         type:"GET",
@@ -179,12 +181,13 @@ function refresh_table() {
                             <td>${ data[i][1].cast }</td>
                             <td>${ data[i][1].boys_seat }</td>
                             <td>${ data[i][1].girls_seat }</td>
-                            <td> <i class="fa fa-trash" style="color:red;"></i></td>
-                            </tr>`)
+                            <td><i class="fa fa-trash delete_class" style="color:red;" data-id="${data[i][1].id}"></i></td>
+                            </tr>`
+                )
             }
         },
         error:function (error) {
 
         }
-    })
+    });
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App;
+use App\AllotedSeats;
 use App\Departments;
 use App\Institution;
 use App\RoomDetails;
@@ -198,7 +199,7 @@ class AdminController extends Controller
             'cast' => $data['cast']
             ]);
 //        dd(SeatMatrix::where('year', '6')->get()->first());
-        dd($new);
+//        dd($new);
         $new->boys_seat = $data['boys_seat'];
         $new->girls_seat = $data['girls_seat'];
         $new->save();
@@ -346,33 +347,63 @@ class AdminController extends Controller
     public function allotSeats(){
         $merit_list = MeritList::where('in_ssc_hsc',1)->get();
 
-//        dd($merit_list);
+//        ALLOT SEATS ACCORDING TO MERIT LIST
         $alloted_seats = collect([]);
+
         foreach($merit_list as $item){
-//            dd($item);
+
            $seat_matrix =  SeatMatrix::where([
                 ['institution_id' , $item->institution_id],
                 ['department_id' , $item->department_id],
                 ['year' , $item->term],
                 ['cast' , $item->cast],
             ])->get()->first();
+            $available = false;
            if($seat_matrix){
+               $newSeat =  AllotedSeats::firstOrCreate(['merit_list_id' => $item->id ]);
                if ($item->gender == 'male'){
                    if ($seat_matrix->boys_seat > 0){
                        $seat_matrix->boys_seat -= 1;
+                       $available = true;
                        $alloted_seats->add($item);
                    }
                }elseif ($item->gender == 'female'){
                    if ($seat_matrix->girls_seat > 0){
                        $seat_matrix->girls_seat -= 1;
+                       $available = true;
                        $alloted_seats->add($item);
+                   }
+                   if ($available){
+                       $newSeat->user_id = $item->user_id; $newSeat->is_room_allocated = false;$newSeat->merit_list_id = $item->id;$newSeat->term = $item->term;
+                       $newSeat->save();
                    }
                }
 //               $seat_matrix->save();
+//
            }
 
         }
-        dd($alloted_seats);
+//        dd(AllotedSeats::all()->first->MeritList);
+//        ALLOT ROOMS CORRESPONDING TO  institution_id , department_id AND  year
+        foreach ($alloted_seats=AllotedSeats::all() as  $alloted_seat){
+            $room = RoomDetails::where([
+                ['institution_id' , $alloted_seat->institution_id],
+                ['department_id' , $alloted_seat->department_id],
+                ['term' , $alloted_seat->term],
+                ['gender' , $alloted_seat->gender]
+            ])->get()->first();
+//            dd($room);
+            if ($room){
+                if($room->assigned <= $room->capacity){
+                    $room->assigned += 1;
+                    $alloted_seat->room_detail_id = $room->id;
+                    dd();
+                }
+            }
+        }
+
+
+        dd();
 
     }
 }

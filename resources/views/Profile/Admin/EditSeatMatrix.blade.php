@@ -28,15 +28,15 @@
                         <div class="form-group">
                             <label class="col-form-label">Select Year</label>
                             <select class="form-control col-md-12 add_year">
-                                <option value="-1" selected disabled>Select Year</option>
+                                <option value="-1" selected disabled>Select Term</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
-                                <option value="4">5</option>
-                                <option value="4">6</option>
-                                <option value="4">7</option>
-                                <option value="4">8</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
                             </select>
                         </div>
                         <div class="form-group">
