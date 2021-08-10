@@ -40,20 +40,21 @@ class ProfileController extends Controller
             'state' => 'required',
             'pincode' => 'required',
             'image' => 'image',
-        ]);
+        ]);              
         if(request('image'))
         {
             $imagePath = request('image')->store('uploads/StudentProfile','public');
-            $image = Image::make(public_path("storage/{$imagePath}"))->fit(300,300);
-            $image->save();
+            // $image = Image::make(public_path("storage/{$imagePath}"))->fit(300,300);
+            // $image->save();
             $imageArray = ['image' => $imagePath];
         }
+        error_log("1");
 
         auth()->user()->StudentProfile->update(array_merge(
             $data,
             $imageArray ?? [],
         ));
-
+        error_log("2");
         if(request('degree') == "1")
         {
             StudentEducation::where("user_id" ,Auth()->user()->id)->update(
@@ -81,7 +82,7 @@ class ProfileController extends Controller
                 ]
             );
         }
-
+        error_log("3");
         return redirect('/student/profile');
     }
 
@@ -114,6 +115,7 @@ class ProfileController extends Controller
     }
     public function addApply()
     {
+        dd(request()->all());
         $data = request()->validate([
             "term" => "required",
             "room_type" => 'required',
@@ -148,8 +150,8 @@ class ProfileController extends Controller
     public function getDepartment()
     {
         $institute_id = request('institute_id');
-        $data = Departments::all();
-        $data = $data->where('institute_id',$institute_id);
+        $data = Departments::all();        
+        $data = $data->where('institution_id',$institute_id);
         return $data;
     }
 

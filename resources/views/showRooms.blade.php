@@ -2,40 +2,55 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid">
+<a href="admin/add-room" class="btn btn-primary ml-5"
+>Add New Rooms
+</a>
+<div class="container-fluid">
+        <h1>Room List</h1>
+                    <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Room Name</th>
+                            <th scope="col">Price (INR head/Month)</th>                 
+                            <th scope="col">room_number</th>
+                            <th scope="col">gender</th>
+                            {{-- <th scope="col">institution_id</th> --}}
+                            {{-- <th scope="col">institution</th> --}}
+                            {{-- <th scope="col">department_id</th> --}}
+                            {{-- <th scope="col">department</th> --}}
+                            {{-- <th scope="col">term</th> --}}
+                            <th scope="col">capacity</th>
+                            <th scope="col">assigned</th>
+                            <th scope="col">is_ac</th>
+                            <th scope="col">is_guest</th>
+                            <th scope="col">is_alloted</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <p style="display: none;">{{ $len = 0 }}</p>
         @foreach($data as $value)
-            <div class="card card-width m-5">
-                <div id="carouselExampleIndicators{{$value->id}}" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carouselExampleIndicators{{$value->id}}" data-slide-to="0"
-                            class="active"></li>
-                        <li data-target="#carouselExampleIndicators{{$value->id}}" data-slide-to="1"></li>
-                    </ol>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img class="d-block w-100" src="/storage/{{ $value->image1 }}" alt="First slide">
-                        </div>
-                        <div class="carousel-item">
-                            <img class="d-block w-100" src="/storage/{{ $value->image2 }}" alt="Second slide">
-                        </div>
-                    </div>
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators{{$value->id}}" role="button"
-                       data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators{{$value->id}}" role="button"
-                       data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-                <div class="card-body" style="text-align: center;margin: 10px;">
-                    <h4 class="card-title">Room Name: {{ $value->room_type }}</h4>
-                    <h5 class="card-title">Room Type: {{ $value->room_select }}</h5>
-                    <p class="card-text">Price: <strong>{{ $value->price }} INR</strong> per head per Month</p>
-                </div>
-            </div>
+        <p style="display: none;">{{ $len++ }}</p>
+        <tr>
+            <th scope="row">{{$len}}</th>
+            <td>{{ $value->room_type }} </td>
+            <td> {{ $value->price }} </td>    
+            <td>{{ $value->room_number }} </td>
+            <td>{{ $value->gender }} </td>
+            {{-- <td>{{ $value->institution_id }} </td>
+            <td>{{ $value->institution->institute }} </td>
+            <td>{{ $value->department_id }} </td>
+            <td>{{ $value->department->department_name }} </td>
+            <td>{{ $value->term }} </td> --}}
+            <td>{{ $value->capacity }} </td>
+            <td>{{ $value->assigned }} </td>
+            <td>{{ $value->is_ac }} </td>
+            <td>{{ $value->is_guest }} </td>
+            <td>{{ $value->is_alloted }} </td>
+        </tr>
+                    
         @endforeach
+        </tbody>
+    </table>
     </div>
 @endsection

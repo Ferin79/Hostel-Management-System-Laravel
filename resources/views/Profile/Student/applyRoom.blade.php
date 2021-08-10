@@ -554,13 +554,14 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                             @enderror
+                            {{ $roomDetails }}
                             <div class="form-group row">
                                 <label for="room_type" class="col-md-4 col-form-label text-md-right">Room Type</label>
                                 <div class="col-md-6">
                                     <select class="form-control" required name="room_type" id="room_type">
                                         <option value="0" selected disabled>Select Type</option>
                                         @foreach($roomDetails as $room)
-                                            <option value="{{$room->room_select}}">{{ $room->room_select }} Sharing
+                                            <option value="{{$room->room_type}}">{{ $room->room_type }} Sharing
                                                 -- {{ $room->price }} INR
                                             </option>
                                         @endforeach

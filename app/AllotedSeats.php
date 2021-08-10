@@ -12,4 +12,12 @@ class AllotedSeats extends Model
     {
         return $this->belongsTo(MeritList::class);
     }
+    public  function User()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public  function RoomDetails()
+    {
+        return $this->belongsTo(RoomDetails::class);
+    }
 }
