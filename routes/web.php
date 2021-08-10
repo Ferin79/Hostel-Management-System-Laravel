@@ -65,3 +65,5 @@ Route::get('/admin/getUser/{userId}',function ($userId){
     ]);
     return $data;
 });
+
+Route::get('/admin/allotedStudents','AdminController@allotedStudents');

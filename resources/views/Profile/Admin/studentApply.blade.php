@@ -15,6 +15,8 @@
                         @csrf
                     <button class="btn btn-success mb-3">Generate Merit List</button>
                     </form>
+                    <input type="search" class="form-control col-md-3 col-sm-12 m-3" style="padding-left: 20px;"
+                               placeholder="Search Seat Matrix ........." name="search_table" id="search_table"/>
                     <table class="table">
                         <thead class="thead-dark">
                         <tr>
@@ -24,6 +26,8 @@
                             <th scope="col">Percentage/CGPA</th>
                             <th scope="col">Department</th>
                             <th scope="col">Term</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Cast</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -37,6 +41,8 @@
                                 <td>{{$value->user->StudentEducation->cgpa == '-1' ? $value->user->StudentEducation->percentage : $value->user->StudentEducation->cgpa }}</td>
                                 <td>{{ $value->user->StudentEducation->department->department_name }}</td>
                                 <td>{{ $value->term }}</td>
+                                <td>{{ $value->user->studentprofile->gender }}</td>
+                                <td>{{ $value->user->studentprofile->cast }}</td>
                             </tr>
                         @endforeach
                         </tbody>

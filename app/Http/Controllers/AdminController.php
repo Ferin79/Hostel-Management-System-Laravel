@@ -94,18 +94,18 @@ class AdminController extends Controller
         $data['is_guest'] = request()->has('is_guest');
         $data['institution_id'] = Departments::find($data['department_id'])->Institution->id;
         $imageArray = [];
-        if (request('image1') && request('image2')) {
-            $imagePath1 = request('image1')->store('uploads/Rooms', 'public');
-            $image1 = Image::make(public_path("storage/{$imagePath1}"))->fit(1280, 720);
-            $image1->save();
-            $imagePath2 = request('image2')->store('uploads/Rooms', 'public');
-            $image2 = Image::make(public_path("storage/{$imagePath2}"))->fit(1280, 720);
-            $image2->save();
-            $imageArray = [
-                'image1' => $imagePath1,
-                'image2' => $imagePath2
-            ];
-        }
+        // if (request('image1') && request('image2')) {
+        //     $imagePath1 = request('image1')->store('uploads/Rooms', 'public');
+        //     $image1 = Image::make(public_path("storage/{$imagePath1}"))->fit(1280, 720);
+        //     $image1->save();
+        //     $imagePath2 = request('image2')->store('uploads/Rooms', 'public');
+        //     $image2 = Image::make(public_path("storage/{$imagePath2}"))->fit(1280, 720);
+        //     $image2->save();
+        //     $imageArray = [
+        //         'image1' => $imagePath1,
+        //         'image2' => $imagePath2
+        //     ];
+        // }
         $new = new RoomDetails();
         $merge = array_merge(
             $data,
@@ -115,7 +115,7 @@ class AdminController extends Controller
         $new->save();
 
 
-        return redirect('/admin/add-room');
+        return redirect('/showRooms');
     }
 
     public function seatMatrix()
@@ -168,6 +168,7 @@ class AdminController extends Controller
     {
         $val = request('institution_id');
         $data = Departments::all();
+        
         $data = $data->where('institution_id', $val);
         return $data;
     }
@@ -179,6 +180,7 @@ class AdminController extends Controller
 
     public function addSeatMatrix()
     {
+
         if(CopySeatMatrix::all()->count() > 0){
         return 'Cannot edit after copy seat matrix generated';
         }
@@ -191,15 +193,14 @@ class AdminController extends Controller
             "boys_seat" => 'required',
             "girls_seat" => 'required',
         ]);
-//        dd($data);
+
         $new = SeatMatrix::firstOrNew([
             'institution_id' => $data['institution_id'],
             'department_id' => $data['department_id'],
             'year' => $data['year'],
             'cast' => $data['cast']
             ]);
-//        dd(SeatMatrix::where('year', '6')->get()->first());
-//        dd($new);
+
         $new->boys_seat = $data['boys_seat'];
         $new->girls_seat = $data['girls_seat'];
         $new->save();
@@ -207,8 +208,9 @@ class AdminController extends Controller
     }
 
     public function getSeatMatrix()
-    {
+    {        
         $data = SeatMatrix::all();
+
         $institute = Institution::all();
         $department = Departments::all();
         //get institute name
@@ -228,12 +230,16 @@ class AdminController extends Controller
 
     public function showStudentApply()
     {
-        $data = StudentApply::all();
+        $data = StudentApply::with(['user' => function($user){
+            $user->with('studentprofile');
+        }])->get();
+        // return ($data);
         return view('Profile.Admin.studentApply', compact('data'));
     }
 
     public function generate_seat_matrix()
     {
+
         $applications = StudentApply::all();
         $ssc_hsc = '';
         $clg = '';
@@ -284,7 +290,7 @@ class AdminController extends Controller
             $merit_list->gender = $data->gender;
             $merit_list->save();
         }
-
+        // dd($merit_list->Department->id);
         // Create MasterMeritList migration
         // ADD create MasterMeritList button on edit_seat_matrix page, after submitting that button
         // Normalize cast field
@@ -293,43 +299,50 @@ class AdminController extends Controller
 
         return view('Profile.Admin.seatMat', compact('ssc_hsc', 'clg', 'depts','merit_list'));
 
-//        $applications = StudentApply::all();
-//        foreach ($applications as $application) {
-//            $joined = $application->user->select('*')
-//                ->join('student_education', 'users.id', '=', 'student_education.user_id')
-//                ->join('student_applies', 'users.id', '=', 'student_applies.user_id')
-//                ->join('student_profiles', 'users.id', '=', 'student_profiles.user_id');
-//            $ssc_hsc = $joined->where('in_ssc_hsc', 1)->get()->sortByDesc('percentage');
-//
-//            $joined = $application->user->select('*')
-//                ->join('student_education', 'users.id', '=', 'student_education.user_id')
-//                ->join('student_applies', 'users.id', '=', 'student_applies.user_id')
-//                ->join('student_profiles', 'users.id', '=', 'student_profiles.user_id');
-//            $college = $joined->where('in_college', 1)->get()->sortByDesc('cgpa');
-//
-//        }
-//            $pdf = App::make('dompdf.wrapper');
-//
-//            $output = "";
-//            foreach ($ssc_hsc as $value)
-//            {
-//                $output =  $output . "
-//                    <ul>
-//                        <li>".$value."</li>
-//                    </ul>
-//                ";
-//            }
-//            dd($ssc_hsc);
-//            $pdf->loadHTML($output);
-//            return $pdf->stream();
+    //    $applications = StudentApply::all();
+    //    foreach ($applications as $application) {
+    //        $joined = $application->user->select('*')
+    //            ->join('student_education', 'users.id', '=', 'student_education.user_id')
+    //            ->join('student_applies', 'users.id', '=', 'student_applies.user_id')
+    //            ->join('student_profiles', 'users.id', '=', 'student_profiles.user_id');
+    //        $ssc_hsc = $joined->where('in_ssc_hsc', 1)->get()->sortByDesc('percentage');
+
+    //        $joined = $application->user->select('*')
+    //            ->join('student_education', 'users.id', '=', 'student_education.user_id')
+    //            ->join('student_applies', 'users.id', '=', 'student_applies.user_id')
+    //            ->join('student_profiles', 'users.id', '=', 'student_profiles.user_id');
+    //        $college = $joined->where('in_college', 1)->get()->sortByDesc('cgpa');
+
+    //    }
+    //        $pdf = App::make('dompdf.wrapper');
+
+    //        $output = " <table>
+    //        <tr>                       
+    //         <th>First Name</th>
+    //        </tr>";
+    //        foreach ($ssc_hsc as $value)
+    //        {
+    //            $output =  $output . "
+                  
+    //                    <tr>
+    //                     <td>".$value->first_name."</td>
+    //                    </tr>                   
+    //            ";
+    //        }
+    //        $output = $output . "</table>";
+    //     //    dd($ssc_hsc); 
+    //        $pdf->loadHTML($output);
+    //        return $pdf->stream();
     }
 
     public function generateMasterSeatMatrix()
     {
-        $temp_seat_matrix = SeatMatrix::all();
+        // RoomDetails::whereBetween("id", [0,100])->update(["assigned" => 0]);
+        // AllotedSeats::whereBetween("id", [0,100])->delete();
+        $temp_seat_matrix = CopySeatMatrix::all();
 
         foreach($temp_seat_matrix as $seat_matrix){
-            $master_seat_matrix = CopySeatMatrix::firstOrNew(['institution_id' => $seat_matrix->institution_id ,
+            $master_seat_matrix = SeatMatrix::firstOrNew(['institution_id' => $seat_matrix->institution_id ,
                                                                 'department_id' => $seat_matrix->department_id ,
                                                                 'year' => $seat_matrix->year ,
                                                                 'cast' => $seat_matrix->cast]);
@@ -341,44 +354,48 @@ class AdminController extends Controller
             $master_seat_matrix->girls_seat = $seat_matrix->girls_seat;
             $master_seat_matrix->save();
         }
-        dd(CopySeatMatrix::all());
+        return (CopySeatMatrix::all());
 
     }
-    public function allotSeats(){
-        $merit_list = MeritList::where('in_ssc_hsc',1)->get();
-
+    public function allotSeats(){        
+        RoomDetails::whereBetween("id", [0,100])->update(["assigned" => 0]);
+        // dd("START",AllotedSeats::all());
+        $merit_list = MeritList::where('in_ssc_hsc',1)->get();                
 //        ALLOT SEATS ACCORDING TO MERIT LIST
         $alloted_seats = collect([]);
 
         foreach($merit_list as $item){
 
+           error_log("Merit List seat matrix");
            $seat_matrix =  SeatMatrix::where([
                 ['institution_id' , $item->institution_id],
                 ['department_id' , $item->department_id],
                 ['year' , $item->term],
                 ['cast' , $item->cast],
             ])->get()->first();
-            $available = false;
-           if($seat_matrix){
+            $available = false;            
+           if($seat_matrix){            
                $newSeat =  AllotedSeats::firstOrCreate(['merit_list_id' => $item->id ]);
                if ($item->gender == 'male'){
                    if ($seat_matrix->boys_seat > 0){
                        $seat_matrix->boys_seat -= 1;
                        $available = true;
                        $alloted_seats->add($item);
+                       error_log("MALE");
                    }
                }elseif ($item->gender == 'female'){
                    if ($seat_matrix->girls_seat > 0){
                        $seat_matrix->girls_seat -= 1;
                        $available = true;
                        $alloted_seats->add($item);
+                       error_log("FEMALE");
                    }
-                   if ($available){
-                       $newSeat->user_id = $item->user_id; $newSeat->is_room_allocated = false;$newSeat->merit_list_id = $item->id;$newSeat->term = $item->term;
-                       $newSeat->save();
-                   }
-               }
-//               $seat_matrix->save();
+                }
+                if ($available){
+                    $newSeat->user_id = $item->user_id; $newSeat->is_room_allocated = false;$newSeat->merit_list_id = $item->id;$newSeat->term = $item->term;
+                    $newSeat->save();
+                }
+              $seat_matrix->save();
 //
            }
 
@@ -387,23 +404,28 @@ class AdminController extends Controller
 //        ALLOT ROOMS CORRESPONDING TO  institution_id , department_id AND  year
         foreach ($alloted_seats=AllotedSeats::all() as  $alloted_seat){
             $room = RoomDetails::where([
-                ['institution_id' , $alloted_seat->institution_id],
-                ['department_id' , $alloted_seat->department_id],
-                ['term' , $alloted_seat->term],
-                ['gender' , $alloted_seat->gender]
+                // ['institution_id' , $alloted_seat->MeritList->institution_id],
+                // ['department_id' , $alloted_seat->MeritList->department_id],
+                // ['term' , $alloted_seat->MeritList->term],
+                ['gender' , $alloted_seat->MeritList->gender]
             ])->get()->first();
-//            dd($room);
             if ($room){
-                if($room->assigned <= $room->capacity){
+                if($room->assigned < $room->capacity){
                     $room->assigned += 1;
                     $alloted_seat->room_detail_id = $room->id;
-                    dd();
+                    $room->save();    
+                    $alloted_seat->save();   
                 }
             }
-        }
-
-
-        dd();
-
+        }   
+        
+        return redirect('admin/allotedStudents');
     }
+
+    public function allotedStudents()
+    {
+        $data = AllotedSeats::all();
+        return view('Profile.Admin.AllotedStudents', compact('data'));
+    }
+
 }

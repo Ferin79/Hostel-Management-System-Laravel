@@ -151,7 +151,7 @@
                                 <td>{{$item->department_id}} </td>
                                 <td>{{$item->in_ssc_hsc}} </td>
                                 <td>{{$item->in_college}} </td>
-                                <td>{{$item->cgpa}} </td>
+                                <td>{{$item->cgpa == -1 ? "NA" : $item->cgpa}} </td>
                                 <td>{{$item->percentage}} </td>
                                 <td>{{$item->term}} </td>
                                 <td>{{$item->cast}} </td>
